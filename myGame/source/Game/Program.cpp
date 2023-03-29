@@ -1,6 +1,7 @@
 ﻿#include <memory>
 #include "GameException.h"
 #include "Game.h"
+#include "RenderingGame.h"
 
 
 //memory leak detection
@@ -10,7 +11,8 @@
 #include <crtdbg.h>
 #endif
 
-//using namespace Library;
+using namespace Library;
+using namespace Rendering;
 
 int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR commandLine, int showCommand)
 {
@@ -21,7 +23,8 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE previousInstance, LPSTR command
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-    std::unique_ptr<Game> game(new Game(instance, L"RenderingClass", L"DXGame", showCommand));
+    std::unique_ptr<RenderingGame> game(new RenderingGame(instance, L"RenderingClass", L"DXGame", showCommand));
+    //std::unique_ptr<Game> game(new Game(instance, L"RenderingClass", L"DXGame", showCommand));
 
     try
     {
