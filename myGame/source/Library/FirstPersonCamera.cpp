@@ -78,7 +78,7 @@ namespace Library
 
     void FirstPersonCamera::Update(const GameTime& gameTime)
     {
-		XMFLOAT2 movementAmount = Vector2Helper::Zero;
+		XMFLOAT3 movementAmount = Vector3Helper::Zero;
         if (mKeyboard != nullptr)
         {
             if (mKeyboard->IsKeyDown(DIK_W))
@@ -100,12 +100,22 @@ namespace Library
             {
                 movementAmount.x = 1.0f;
             }
+
+            if (mKeyboard->IsKeyDown(DIK_Q))
+            {
+                movementAmount.z = -1.0f;
+            }
+
+            if (mKeyboard->IsKeyDown(DIK_E))
+            {
+                movementAmount.z = 1.0f;
+            }
         }
 
         XMFLOAT2 rotationAmount = Vector2Helper::Zero;
         if ((mMouse != nullptr) && (mMouse->IsButtonHeldDown(MouseButtonsLeft)))
         {
-            LPDIMOUSESTATE mouseState = mMouse->CurrentState();			
+            LPDIMOUSESTATE mouseState = mMouse->CurrentState();
             rotationAmount.x = -mouseState->lX * mMouseSensitivity;
             rotationAmount.y = -mouseState->lY * mMouseSensitivity;
         }
@@ -120,13 +130,16 @@ namespace Library
         ApplyRotation(XMMatrixMultiply(pitchMatrix, yawMatrix));
 
         XMVECTOR position = XMLoadFloat3(&mPosition);
-		XMVECTOR movement = XMLoadFloat2(&movementAmount) * mMovementRate * elapsedTime;
+		XMVECTOR movement = XMLoadFloat3(&movementAmount) * mMovementRate * elapsedTime;
 
 		XMVECTOR strafe = right * XMVectorGetX(movement);
         position += strafe;
 
         XMVECTOR forward = XMLoadFloat3(&mDirection) * XMVectorGetY(movement);
         position += forward;
+
+        XMVECTOR up = XMLoadFloat3(&mUp) * XMVectorGetZ(movement);
+        position += up;
         
         XMStoreFloat3(&mPosition, position);
 
