@@ -5,6 +5,8 @@
 #include "Mouse.h"
 #include "TriangleDemo.h"
 #include "ModelFromFile.h"
+#include "FpsComponent.h"
+#include "RenderStateHelper.h"
 
 namespace Rendering
 {;
@@ -16,8 +18,10 @@ namespace Rendering
         mDirectInput(nullptr),
         mKeyboard(nullptr),
         mMouse(nullptr),
-        //mDemo(nullptr),
-        mModel(nullptr)
+        mDemo(nullptr),
+        mModel(nullptr),
+        mFpsComponent(nullptr),
+        mRenderStateHelper(nullptr)
     {
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
@@ -45,12 +49,14 @@ namespace Rendering
         mComponents.push_back(mMouse);
         mServices.AddService(Mouse::TypeIdClass(), mMouse);
     
-        //mDemo = new TriangleDemo(*this, *mCamera);
-        //mComponents.push_back(mDemo);
+        mDemo = new TriangleDemo(*this, *mCamera);
+        mComponents.push_back(mDemo);
         mModel = new ModelFromFile(*this, *mCamera, "Content\\Models\\bench.3ds");
         mModel->SetPosition(-1.57f, -0.0f, -0.0f, 0.005f, 0.0f, 0.6f, 0.0f);
         mComponents.push_back(mModel);
-
+        mFpsComponent = new FpsComponent(*this);
+        mFpsComponent->Initialize();
+        mRenderStateHelper = new RenderStateHelper(*this);
 
         Game::Initialize();
 
@@ -59,8 +65,11 @@ namespace Rendering
 
     void RenderingGame::Shutdown()
     {
-		//DeleteObject(mDemo);
+		DeleteObject(mDemo);
 		DeleteObject(mModel);
+		DeleteObject(mFpsComponent);
+		DeleteObject(mRenderStateHelper);
+
         DeleteObject(mCamera);
         DeleteObject(mKeyboard);
         DeleteObject(mMouse);
@@ -74,6 +83,7 @@ namespace Rendering
         {
             Exit();
         }
+        mFpsComponent->Update(gameTime);
         Game::Update(gameTime);
     }
 
@@ -81,6 +91,10 @@ namespace Rendering
     {
         mDirect3DDeviceContext->ClearRenderTargetView(mRenderTargetView, reinterpret_cast<const float*>(&BackgroundColor));
         mDirect3DDeviceContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+        mRenderStateHelper->SaveAll();
+        mFpsComponent->Draw(gameTime);
+        mRenderStateHelper->RestoreAll();
 
         Game::Draw(gameTime);
        

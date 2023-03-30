@@ -143,11 +143,8 @@ namespace Rendering
         mesh->CreateIndexBuffer(&mIndexBuffer);
         mIndexCount = mesh->Indices().size();
 
-
-
         // Load the texture
-       // std::wstring textureName = L"Content\\Textures\\EarthComposite.jpg";
-
+        //std::wstring textureName = L"Content\\Textures\\EarthComposite.jpg";
         std::wstring textureName = L"Content\\Textures\\bench.jpg";
 
 
@@ -274,9 +271,6 @@ namespace Rendering
 
         XMStoreFloat3(const_cast<XMFLOAT3*>(&mBoundingBox.Center), 0.5f * (vMin + vMax));
         XMStoreFloat3(const_cast<XMFLOAT3*>(&mBoundingBox.Extents), 0.5f * (vMax - vMin));
-
-
-
 
         D3D11_BUFFER_DESC vertexBufferDesc;
         ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));

@@ -158,8 +158,7 @@ copy "$(TargetPath)" "$(SolutionDir)..\lib\"
 </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>mkdir "$(OutDir)Content"
-IF EXIST "$(SolutionDir)..\content" xcopy /E /Y "$(SolutionDir)..\content" "$(OutDir)Content\"
+      <Command>
 </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>

@@ -11,6 +11,7 @@ namespace Library
 	class RenderStateHelper;
     class Keyboard;
     class Mouse;
+    class FpsComponent;
 }
 
 namespace Rendering
@@ -38,7 +39,9 @@ namespace Rendering
         Keyboard* mKeyboard;
         Mouse* mMouse;
 
-        //TriangleDemo* mDemo;
+        TriangleDemo* mDemo;
         ModelFromFile* mModel;
+        FpsComponent* mFpsComponent;
+        RenderStateHelper* mRenderStateHelper;
     };
 }

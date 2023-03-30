@@ -61,7 +61,7 @@ VS_OUTPUT vertex_shader(VS_INPUT IN)
 
 float4 pixel_shader(VS_OUTPUT IN) : SV_Target
 {
-	return ColorTexture.Sample(ColorSampler, IN.TextureCoordinate);
+    return ColorTexture.Sample(ColorSampler, IN.TextureCoordinate);
 }
 
 /************* Techniques *************/

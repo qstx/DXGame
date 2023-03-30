@@ -99,6 +99,10 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)..\..\external\assimp\bin\assimp_release-dll_win32\*.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>mkdir "$(OutDir)Content"
+IF EXIST "$(SolutionDir)..\content" xcopy /E /Y  "$(SolutionDir)..\content" "$(OutDir)Content\"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
