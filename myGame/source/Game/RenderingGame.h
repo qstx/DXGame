@@ -18,6 +18,7 @@ namespace Rendering
 {
     class TriangleDemo;
     class ModelFromFile;
+    class ObjectDiffuseLight;
 
     class RenderingGame : public Game
     {
@@ -43,5 +44,6 @@ namespace Rendering
         ModelFromFile* mModel;
         FpsComponent* mFpsComponent;
         RenderStateHelper* mRenderStateHelper;
+        ObjectDiffuseLight* mObjectDiffuseLight;
     };
 }

@@ -7,6 +7,9 @@
 #include "ModelFromFile.h"
 #include "FpsComponent.h"
 #include "RenderStateHelper.h"
+#include "ObjectDiffuseLight.h"
+#include "SamplerStates.h"
+#include "RasterizerStates.h"
 
 namespace Rendering
 {;
@@ -21,7 +24,8 @@ namespace Rendering
         mDemo(nullptr),
         mModel(nullptr),
         mFpsComponent(nullptr),
-        mRenderStateHelper(nullptr)
+        mRenderStateHelper(nullptr),
+        mObjectDiffuseLight(nullptr)
     {
         mDepthStencilBufferEnabled = true;
         mMultiSamplingEnabled = true;
@@ -57,6 +61,11 @@ namespace Rendering
         mFpsComponent = new FpsComponent(*this);
         mFpsComponent->Initialize();
         mRenderStateHelper = new RenderStateHelper(*this);
+        mObjectDiffuseLight = new ObjectDiffuseLight(*this, *mCamera);
+        mObjectDiffuseLight->SetPosition(-1.57f, -0.0f, -0.0f, 0.01, -1.0f, 0.75f, -2.5f);
+        mComponents.push_back(mObjectDiffuseLight);
+        RasterizerStates::Initialize(mDirect3DDevice);
+        SamplerStates::Initialize(mDirect3DDevice);
 
         Game::Initialize();
 
@@ -69,6 +78,7 @@ namespace Rendering
 		DeleteObject(mModel);
 		DeleteObject(mFpsComponent);
 		DeleteObject(mRenderStateHelper);
+        DeleteObject(mObjectDiffuseLight);
 
         DeleteObject(mCamera);
         DeleteObject(mKeyboard);
