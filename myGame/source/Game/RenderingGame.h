@@ -16,6 +16,7 @@ namespace Library
 namespace Rendering
 {
     class TriangleDemo;
+    class ModelFromFile;
 
     class RenderingGame : public Game
     {
@@ -37,6 +38,7 @@ namespace Rendering
         Keyboard* mKeyboard;
         Mouse* mMouse;
 
-        TriangleDemo* mDemo;
+        //TriangleDemo* mDemo;
+        ModelFromFile* mModel;
     };
 }
