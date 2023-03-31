@@ -69,11 +69,13 @@ namespace Rendering
 
         Game::Initialize();
 
-		mCamera->SetPosition(0.0f, 0.0f, 5.0f);
+		mCamera->SetPosition(0.0f, 2.0f, 5.0f);
     }
 
     void RenderingGame::Shutdown()
     {
+        RasterizerStates::Release();
+        SamplerStates::Release();
 		DeleteObject(mDemo);
 		DeleteObject(mModel);
 		DeleteObject(mFpsComponent);
