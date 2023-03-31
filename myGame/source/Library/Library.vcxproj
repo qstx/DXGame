@@ -22,6 +22,11 @@
     <ClInclude Include="BasicMaterial.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="DefaultMaterial.h" />
+    <ClInclude Include="DefaultObject.h" />
+    <ClInclude Include="DemoGameObject.h" />
+    <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="DiffuseLightingMaterial.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="DrawableGameComponent.h" />
     <ClInclude Include="Effect.h" />
@@ -31,6 +36,7 @@
     <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameException.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Light.h" />
@@ -46,6 +52,7 @@
     <ClInclude Include="RenderStateHelper.h" />
     <ClInclude Include="RTTI.h" />
     <ClInclude Include="SamplerStates.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ServiceContainer.h" />
     <ClInclude Include="Technique.h" />
     <ClInclude Include="Utility.h" />
@@ -55,6 +62,11 @@
   <ItemGroup>
     <ClCompile Include="BasicMaterial.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DefaultMaterial.cpp" />
+    <ClCompile Include="DefaultObject.cpp" />
+    <ClCompile Include="DemoGameObject.cpp" />
+    <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="DiffuseLightingMaterial.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="DrawableGameComponent.cpp" />
     <ClCompile Include="Effect.cpp" />
@@ -64,6 +76,7 @@
     <ClCompile Include="GameClock.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameException.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -78,6 +91,7 @@
     <ClCompile Include="RasterizerStates.cpp" />
     <ClCompile Include="RenderStateHelper.cpp" />
     <ClCompile Include="SamplerStates.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ServiceContainer.cpp" />
     <ClCompile Include="Technique.cpp" />
     <ClCompile Include="Utility.cpp" />
@@ -169,7 +183,7 @@ copy "$(TargetPath)" "$(SolutionDir)..\lib\"
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-</Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

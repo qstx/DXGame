@@ -19,6 +19,9 @@
     <Filter Include="Contents\Shaders">
       <UniqueIdentifier>{d09ae66a-5df5-45a5-af66-3fd4f6cb0442}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\Shaders\include">
+      <UniqueIdentifier>{9177d99c-f85d-44fd-8867-11c5675db343}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Program.cpp">
@@ -31,9 +34,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ModelFromFile.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DiffuseLightingMaterial.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="ObjectDiffuseLight.cpp">
@@ -50,9 +50,6 @@
     <ClInclude Include="ModelFromFile.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="DiffuseLightingMaterial.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectDiffuseLight.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -64,8 +61,14 @@
     <FxCompile Include="..\..\content\Effects\DiffuseLighting.fx">
       <Filter>Contents\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="..\..\content\Effects\BasicEffect.fx">
+    <FxCompile Include="..\..\content\Effects\DefaultLighting.fx">
       <Filter>Contents\Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\content\Effects\BasicEffect.fx" />
+    <None Include="..\..\content\Effects\include\Common.fxh">
+      <Filter>Contents\Shaders\include</Filter>
+    </None>
   </ItemGroup>
 </Project>

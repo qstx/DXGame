@@ -26,10 +26,8 @@ namespace Rendering
 
 
 		//add to support multiple model in the scene, remove this function
-
+		//在当前坐标系下：先ZXY旋转，然后缩放，然后平移
 		void SetPosition(const float rotateX, const float rotateY, const float rotateZ, const float scaleFactor, const float translateX, const float translateY, const float translateZ);
-
-		//bounding box require to access the world matrix
 
 		XMFLOAT4X4* WorldMatrix() { return &mWorldMatrix; }
 
@@ -41,11 +39,6 @@ namespace Rendering
 
 		virtual void Initialize() override;
 		virtual void Draw(const GameTime& gameTime) override;
-
-
-
-
-
 
 	private:
 		typedef struct _TextureMappingVertex
