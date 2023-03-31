@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{2d0784ab-2a0e-4f30-b973-1b5feb412931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Shaders">
+      <UniqueIdentifier>{d09ae66a-5df5-45a5-af66-3fd4f6cb0442}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Program.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingGame.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleDemo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelFromFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="DiffuseLightingMaterial.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectDiffuseLight.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RenderingGame.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleDemo.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelFromFile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DiffuseLightingMaterial.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDiffuseLight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\content\Effects\TextureMapping.fx">
+      <Filter>Contents\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\content\Effects\DiffuseLighting.fx">
+      <Filter>Contents\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="..\..\content\Effects\BasicEffect.fx">
+      <Filter>Contents\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
