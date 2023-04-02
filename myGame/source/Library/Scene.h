@@ -25,7 +25,7 @@ namespace Library
         Scene& operator=(const Scene& rhs);
 
         Game& mGame;
-        Camera* mCamera;
+        Camera& mCamera;
         std::vector<GameObject*> mGameObjects;
     };
 }

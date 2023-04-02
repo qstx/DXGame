@@ -43,13 +43,8 @@ namespace Rendering
 		Keyboard* mKeyboard;
 		Mouse* mMouse;
 
-		//TriangleDemo* mDemo;
-		//ModelFromFile* mModel;
 		FpsComponent* mFpsComponent;
 		RenderStateHelper* mRenderStateHelper;
-		//ObjectDiffuseLight* mObjectDiffuseLight;
-		//DefaultObject* mObj;
 		Scene* mScene;
-		//GameObject* mGo;
 	};
 }

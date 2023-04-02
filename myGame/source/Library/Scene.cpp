@@ -5,12 +5,16 @@
 namespace Library
 {
 	Scene::Scene(Game& game, Camera& camera):
-		mGame(game)
+		mGame(game),mCamera(camera)
 	{
 	}
 
 	Scene::~Scene()
 	{
+		for (GameObject*& go : mGameObjects)
+		{
+			DeleteObject(go);
+		}
 	}
 
 	void Scene::Initialize()
@@ -41,7 +45,7 @@ namespace Library
 	{
 		for (GameObject*& go : mGameObjects)
 		{
-			go->Shutdown();
+			go->Destory();
 		}
 	}
 

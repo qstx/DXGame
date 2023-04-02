@@ -29,7 +29,7 @@ namespace Library
 
 	void GameObject::Update(const GameTime& gameTime)
 	{
-		for (GameComponent* comp : mGameComponents)
+		for (GameComponent*& comp : mGameComponents)
 		{
 			comp->Update(gameTime);
 		}
@@ -38,7 +38,7 @@ namespace Library
 	void GameObject::Draw(const GameTime& gameTime)
 	{
 		DrawableGameComponent* dComp = nullptr;
-		for (GameComponent* comp : mGameComponents)
+		for (GameComponent*& comp : mGameComponents)
 		{
 			dComp = (*comp).As<DrawableGameComponent>();
 			if (dComp)
@@ -46,9 +46,9 @@ namespace Library
 		}
 	}
 
-	void GameObject::Shutdown()
+	void GameObject::Destory()
 	{
-		for (GameComponent* comp : mGameComponents)
+		for (GameComponent*& comp : mGameComponents)
 		{
 			DeleteObject(comp);
 		}

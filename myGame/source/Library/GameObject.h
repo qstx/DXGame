@@ -27,7 +27,7 @@ namespace Library
 		virtual void Initialize();
 		virtual void Update(const GameTime& gameTime);
 		virtual void Draw(const GameTime& gameTime);
-		virtual void Shutdown();
+		virtual void Destory();
 
         Game& GetGame();
 

@@ -15,8 +15,7 @@
 #include "DemoGameObject.h"
 
 namespace Rendering
-{;
-
+{
 	const XMFLOAT4 RenderingGame::BackgroundColor = { 0.5f, 0.5f, 0.5f, 1.0f };
 
     RenderingGame::RenderingGame(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand)
@@ -42,9 +41,6 @@ namespace Rendering
         mComponents.push_back(mCamera);
         mServices.AddService(Camera::TypeIdClass(), mCamera);
 
-        mScene = new DemoScene(*this, *mCamera);
-        mScene->Initialize();
-
         if (FAILED(DirectInput8Create(mInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&mDirectInput, nullptr)))
         {
             throw GameException("DirectInput8Create() failed");
@@ -65,30 +61,33 @@ namespace Rendering
 
         Game::Initialize();
 		mCamera->SetPosition(0.0f, 0.0f, 15.0f);
+
+        mScene = new DemoScene(*this, *mCamera);
+        mScene->Initialize();
     }
 
     void RenderingGame::Shutdown()
     {
         mScene->Shutdown();
+        DeleteObject(mScene);
+
         RasterizerStates::Release();
         SamplerStates::Release();
-        DeleteObject(mScene);
+        Game::Shutdown();
+
 		DeleteObject(mFpsComponent);
 		DeleteObject(mRenderStateHelper);
-
         DeleteObject(mCamera);
         DeleteObject(mKeyboard);
         DeleteObject(mMouse);
         ReleaseObject(mDirectInput);
-        Game::Shutdown();
     }
 
     void RenderingGame::Update(const GameTime &gameTime)
     {
         if (mKeyboard->WasKeyPressedThisFrame(DIK_ESCAPE))
-        {
             Exit();
-        }
+        mScene->Update(gameTime);
         mFpsComponent->Update(gameTime);
         Game::Update(gameTime);
     }
