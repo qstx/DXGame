@@ -152,24 +152,16 @@ namespace Rendering
         {
             throw GameException("CreateWICTextureFromFile() failed.", hr);
         }
-
-
-
-
         //position model in the world space, the issue here is that models are from different sources need adjustment for scaling, rotation,
-        /*
-        XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-        XMMATRIX RotationZ = XMMatrixRotationZ(-1.57f);
-        XMMATRIX RotationX = XMMatrixRotationX(-1.57f);
-        XMMATRIX RotationY = XMMatrixRotationY(-1.57f);
-        XMMATRIX Scale = XMMatrixScaling( 0.05f, 0.05f, 0.05f );
-        XMMATRIX Translation = XMMatrixTranslation( 0.0f, 0.0f, 0.0f );
-        worldMatrix= RotationZ*RotationX *RotationY* Scale * Translation;
-
-        XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
-*/
+        //XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
+        //XMMATRIX RotationZ = XMMatrixRotationZ(-1.57f);
+        //XMMATRIX RotationX = XMMatrixRotationX(-1.57f);
+        //XMMATRIX RotationY = XMMatrixRotationY(-1.57f);
+        //XMMATRIX Scale = XMMatrixScaling( 0.05f, 0.05f, 0.05f );
+        //XMMATRIX Translation = XMMatrixTranslation( 0.0f, 0.0f, 0.0f );
+        //worldMatrix= RotationZ*RotationX *RotationY* Scale * Translation;
+        //XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
     }
-
 
     void ModelFromFile::SetPosition(const float rotateX, const float rotateY, const float rotateZ, const float scaleFactor, const float translateX, const float translateY, const float translateZ)
     {
@@ -184,8 +176,6 @@ namespace Rendering
         XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
     }
 
-
-
     void ModelFromFile::Update(const GameTime& gameTime)
     {
         //	XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
@@ -197,12 +187,7 @@ namespace Rendering
         //	XMStoreFloat4x4(&mWorldMatrix, XMMatrixRotationX(mAngle));
 
         //	XMStoreFloat4x4(&mWorldMatrix, worldMatrix);
-
-
-
-
     }
-
 
     void ModelFromFile::Draw(const GameTime& gameTime)
     {

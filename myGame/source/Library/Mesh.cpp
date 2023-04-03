@@ -6,8 +6,10 @@
 
 namespace Library
 {
-    Mesh::Mesh(Model& model, aiMesh& mesh)
-        : mModel(model), mMaterial(nullptr), mName(mesh.mName.C_Str()), mVertices(), mNormals(), mTangents(), mBiNormals(), mTextureCoordinates(), mVertexColors(), mFaceCount(0), mIndices()
+    Mesh::Mesh(Model& model, aiMesh& mesh):
+        mModel(model), mMaterial(nullptr), mName(mesh.mName.C_Str()),
+        mVertices(), mNormals(), mTangents(), mBiNormals(),
+        mTextureCoordinates(), mVertexColors(), mFaceCount(0), mIndices()
     {
 		mMaterial = mModel.Materials().at(mesh.mMaterialIndex);
 

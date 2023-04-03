@@ -61,6 +61,9 @@
     <Filter Include="Utils\GameObjects\Cube">
       <UniqueIdentifier>{edb4690e-754c-4c50-8baf-1e0d7c66dade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\MeshComponent">
+      <UniqueIdentifier>{c4b634fa-d573-459f-9fb9-a923f5dfc064}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Effect.h">
@@ -159,23 +162,38 @@
     <ClInclude Include="SamplerStates.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="DiffuseLightingMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultObject.h">
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoGameObject.h">
+      <Filter>Utils\GameObjects</Filter>
+    </ClInclude>
     <ClInclude Include="DemoScene.h">
-      <Filter>Utils\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Utils\GameObjects\Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeMeshComponent.h">
-      <Filter>Utils\Components</Filter>
+      <Filter>Utils\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="MeshComponent.h">
-      <Filter>Components</Filter>
+      <Filter>Components\MeshComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleDemo.h">
+      <Filter>Utils\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultSkyboxMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultSkybox.h">
+      <Filter>GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -269,20 +287,38 @@
     <ClCompile Include="SamplerStates.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="DiffuseLightingMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Utils\GameObjects\Cube</Filter>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="CubeMeshComponent.cpp">
-      <Filter>Utils\Components</Filter>
+    <ClCompile Include="DemoGameObject.cpp">
+      <Filter>Utils\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Utils\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="MeshComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Components\MeshComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleDemo.cpp">
+      <Filter>Utils\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultSkyboxMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultSkybox.cpp">
+      <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
