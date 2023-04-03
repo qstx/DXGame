@@ -30,9 +30,6 @@
     <ClCompile Include="RenderingGame.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="TriangleDemo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="ModelFromFile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -42,9 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingGame.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleDemo.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ModelFromFile.h">

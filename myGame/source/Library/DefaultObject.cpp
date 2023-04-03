@@ -18,8 +18,8 @@ namespace Rendering
 {
 	RTTI_DEFINITIONS(DefaultObject)
 
-	DefaultObject::DefaultObject(Game& game, Camera& camera)
-		: DrawableGameComponent(game, camera), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+	DefaultObject::DefaultObject(Game& game)
+		: DrawableGameComponent(game, *(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		mAmbientColor(1, 1, 1, 0.3), mDirectionalLight(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),

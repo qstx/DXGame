@@ -24,6 +24,8 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="DefaultMaterial.h" />
     <ClInclude Include="DefaultObject.h" />
+    <ClInclude Include="DefaultSkybox.h" />
+    <ClInclude Include="DefaultSkyboxMaterial.h" />
     <ClInclude Include="DemoGameObject.h" />
     <ClInclude Include="DemoScene.h" />
     <ClInclude Include="DiffuseLightingMaterial.h" />
@@ -43,6 +45,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="MatrixHelper.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMaterial.h" />
     <ClInclude Include="Mouse.h" />
@@ -55,6 +58,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ServiceContainer.h" />
     <ClInclude Include="Technique.h" />
+    <ClInclude Include="TriangleDemo.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Variable.h" />
     <ClInclude Include="VectorHelper.h" />
@@ -64,6 +68,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DefaultMaterial.cpp" />
     <ClCompile Include="DefaultObject.cpp" />
+    <ClCompile Include="DefaultSkybox.cpp" />
+    <ClCompile Include="DefaultSkyboxMaterial.cpp" />
     <ClCompile Include="DemoGameObject.cpp" />
     <ClCompile Include="DemoScene.cpp" />
     <ClCompile Include="DiffuseLightingMaterial.cpp" />
@@ -83,6 +89,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MatrixHelper.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelMaterial.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -94,6 +101,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ServiceContainer.cpp" />
     <ClCompile Include="Technique.cpp" />
+    <ClCompile Include="TriangleDemo.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Variable.cpp" />
     <ClCompile Include="VectorHelper.cpp" />

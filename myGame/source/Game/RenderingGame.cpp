@@ -110,4 +110,12 @@ namespace Rendering
             throw GameException("IDXGISwapChain::Present() failed.", hr);
         }
     }
+    Camera* RenderingGame::GetCamera()
+    {
+        return mCamera;
+    }
+    Scene* RenderingGame::GetScene()
+    {
+        return mScene;
+    }
 }

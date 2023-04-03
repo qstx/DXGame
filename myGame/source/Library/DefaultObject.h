@@ -20,7 +20,7 @@ namespace Rendering
 		RTTI_DECLARATIONS(DefaultObject, DrawableGameComponent)
 
 	public:
-		DefaultObject(Game& game, Camera& camera);
+		DefaultObject(Game& game);
 		virtual ~DefaultObject();
 
 		virtual void Initialize() override;

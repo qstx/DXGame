@@ -5,7 +5,9 @@
 namespace Library
 {
 	Scene::Scene(Game& game, Camera& camera):
-		mGame(game),mCamera(camera)
+		mGame(game),mCamera(camera),
+		mAmbientColor(1, 1, 1, 0.3),
+		mMainDirectionalLight(nullptr)
 	{
 	}
 
@@ -15,6 +17,11 @@ namespace Library
 		{
 			DeleteObject(go);
 		}
+		for (Light*& light : mLights)
+		{
+			DeleteObject(light);
+		}
+		DeleteObject(mMainDirectionalLight);
 	}
 
 	void Scene::Initialize()
@@ -52,5 +59,9 @@ namespace Library
 	Game& Scene::GetGame()
 	{
 		return mGame;
+	}
+	XMCOLOR& Scene::GetAmbientColor()
+	{
+		return mAmbientColor;
 	}
 }

@@ -17,7 +17,7 @@ namespace Rendering
 		RTTI_DECLARATIONS(DemoGameObject,GameObject)
 
 	public:
-		DemoGameObject(Game& game, Camera& camera);
+		DemoGameObject(Game& game);
 		virtual ~DemoGameObject();
 
 	protected:

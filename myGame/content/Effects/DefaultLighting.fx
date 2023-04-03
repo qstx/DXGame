@@ -13,7 +13,7 @@ cbuffer CBufferPerFrame
 		string Object = "LightColor0";
 		string UIName =  "Light Color";
 		string UIWidget = "Color";
-	> = {1.0f, 1.0f, 1.0f, 1.0f};
+	> = {0.0f, 0.0f, 0.0f, 0.0f};
 
 	float3 LightDirection : DIRECTION <
 		string Object = "DirectionalLight0";

@@ -8,11 +8,15 @@
 
 namespace Library
 {
+	class Camera;
+	class Scene;
 	class Game
 	{
 	public:
 		Game(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand);
 		virtual ~Game();
+		virtual Camera* GetCamera() = 0;
+		virtual Scene* GetScene() = 0;
 
 		HINSTANCE Instance() const;
 		HWND WindowHandle() const;

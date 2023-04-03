@@ -9,8 +9,8 @@ namespace Library
 {
 	RTTI_DEFINITIONS(GameObject)
 
-	GameObject::GameObject(Game& game,Camera& camera):
-		mGame(game), mCamera(&camera)
+	GameObject::GameObject(Game& game):
+		mGame(game)
 	{
 
 	}

@@ -61,6 +61,9 @@
     <Filter Include="Utils\GameObjects\Cube">
       <UniqueIdentifier>{edb4690e-754c-4c50-8baf-1e0d7c66dade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\MeshComponent">
+      <UniqueIdentifier>{c4b634fa-d573-459f-9fb9-a923f5dfc064}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Effect.h">
@@ -180,6 +183,18 @@
     <ClInclude Include="DemoScene.h">
       <Filter>Utils\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>Components\MeshComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleDemo.h">
+      <Filter>Utils\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultSkyboxMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultSkybox.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variable.cpp">
@@ -292,6 +307,18 @@
     </ClCompile>
     <ClCompile Include="DemoScene.cpp">
       <Filter>Utils\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshComponent.cpp">
+      <Filter>Components\MeshComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleDemo.cpp">
+      <Filter>Utils\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultSkyboxMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultSkybox.cpp">
+      <Filter>GameObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

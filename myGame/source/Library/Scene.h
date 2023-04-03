@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Common.h"
 
 namespace Library
 {
@@ -8,6 +9,8 @@ namespace Library
     class GameTime;
     class Camera;
     class GameObject;
+    class Light;
+    class DirectionalLight;
     class Scene
     {
     public:
@@ -20,6 +23,7 @@ namespace Library
         virtual void Shutdown();
 
         Game& GetGame();
+        XMCOLOR& GetAmbientColor();
     protected:
         Scene(const Scene& rhs);
         Scene& operator=(const Scene& rhs);
@@ -27,5 +31,9 @@ namespace Library
         Game& mGame;
         Camera& mCamera;
         std::vector<GameObject*> mGameObjects;
+    public:
+        XMCOLOR mAmbientColor;
+        DirectionalLight* mMainDirectionalLight;
+        std::vector<Light*> mLights;
     };
 }

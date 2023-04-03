@@ -21,7 +21,7 @@ namespace Library
         RTTI_DECLARATIONS(GameObject,RTTI)
 
     public:
-        GameObject(Game& game, Camera& camera);
+        GameObject(Game& game);
         virtual ~GameObject();
 
 		virtual void Initialize();
@@ -36,7 +36,6 @@ namespace Library
         GameObject& operator=(const GameObject& rhs);
 
         Game& mGame;
-        Camera* mCamera;
         std::vector<GameComponent*> mGameComponents;
     };
 }

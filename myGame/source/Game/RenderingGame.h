@@ -32,6 +32,8 @@ namespace Rendering
 		virtual void Initialize() override;
 		virtual void Update(const GameTime& gameTime) override;
 		virtual void Draw(const GameTime& gameTime) override;
+		virtual Camera* GetCamera() override;
+		virtual Scene* GetScene() override;
 
 	protected:
 		virtual void Shutdown() override;
