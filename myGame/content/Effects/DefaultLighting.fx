@@ -1,4 +1,5 @@
-#include "include\\Common.fxh"
+#include "include\CBuffer.fxh"
+#include "include\Common.fxh"
 
 /************* Resources *************/
 
