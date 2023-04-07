@@ -4,8 +4,11 @@
 
 namespace DirectX
 {
-    class SpriteBatch;
-    class SpriteFont;
+    inline namespace DX11
+    {
+        class SpriteBatch;
+        class SpriteFont;
+    }
 }
 
 namespace Library
