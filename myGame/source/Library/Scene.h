@@ -33,7 +33,8 @@ namespace Library
         std::vector<GameObject*> mGameObjects;
     public:
         XMCOLOR mAmbientColor;
-        DirectionalLight* mMainDirectionalLight;
+        //DirectionalLight* mMainDirectionalLight;
         std::vector<Light*> mLights;
+        std::vector<DirectionalLight*> mDirectionalLights;
     };
 }

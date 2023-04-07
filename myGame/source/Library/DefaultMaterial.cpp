@@ -8,32 +8,50 @@ namespace Rendering
 
     DefaultMaterial::DefaultMaterial():
         Material("main11"),
-        MATERIAL_VARIABLE_INITIALIZATION(WorldViewProjection), MATERIAL_VARIABLE_INITIALIZATION(World),
+        MATERIAL_VARIABLE_INITIALIZATION(World),
+        MATERIAL_VARIABLE_INITIALIZATION(ViewProjection),
         MATERIAL_VARIABLE_INITIALIZATION(CamPos),
-        MATERIAL_VARIABLE_INITIALIZATION(AmbientColor), MATERIAL_VARIABLE_INITIALIZATION(LightColor),
-        MATERIAL_VARIABLE_INITIALIZATION(LightDirection), MATERIAL_VARIABLE_INITIALIZATION(ColorTexture)
+        MATERIAL_VARIABLE_INITIALIZATION(AmbientColor),
+        MATERIAL_VARIABLE_INITIALIZATION(DirectLights),
+        MATERIAL_VARIABLE_INITIALIZATION(PointLights),
+        MATERIAL_VARIABLE_INITIALIZATION(SpotLights),
+        MATERIAL_VARIABLE_INITIALIZATION(NumDirLight),
+        MATERIAL_VARIABLE_INITIALIZATION(NumPointLight),
+        MATERIAL_VARIABLE_INITIALIZATION(NumSpotLight),
+        MATERIAL_VARIABLE_INITIALIZATION(ColorTexture),
+        MATERIAL_VARIABLE_INITIALIZATION(P)
     {
     }
 
-    MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, WorldViewProjection)
-    MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, World)
-    MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, CamPos)
-    MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, AmbientColor)
-    MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, LightColor)
-    MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, LightDirection)
-    MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, ColorTexture)
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, World);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, ViewProjection);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, CamPos);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, AmbientColor);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, DirectLights);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, PointLights);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, SpotLights);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, NumDirLight);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, NumPointLight);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, NumSpotLight);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, ColorTexture);
+	MATERIAL_VARIABLE_DEFINITION(DefaultMaterial, P);
 
     void DefaultMaterial::Initialize(Effect* effect)
     {
         Material::Initialize(effect);
 
-        MATERIAL_VARIABLE_RETRIEVE(WorldViewProjection)
-        MATERIAL_VARIABLE_RETRIEVE(World)
-        MATERIAL_VARIABLE_RETRIEVE(CamPos)
-        MATERIAL_VARIABLE_RETRIEVE(AmbientColor)
-        MATERIAL_VARIABLE_RETRIEVE(LightColor)
-        MATERIAL_VARIABLE_RETRIEVE(LightDirection)
-        MATERIAL_VARIABLE_RETRIEVE(ColorTexture)
+        MATERIAL_VARIABLE_RETRIEVE(World);
+        MATERIAL_VARIABLE_RETRIEVE(ViewProjection);
+        MATERIAL_VARIABLE_RETRIEVE(CamPos);
+        MATERIAL_VARIABLE_RETRIEVE(AmbientColor);
+        MATERIAL_VARIABLE_RETRIEVE(DirectLights);
+        MATERIAL_VARIABLE_RETRIEVE(PointLights);
+        MATERIAL_VARIABLE_RETRIEVE(SpotLights);
+        MATERIAL_VARIABLE_RETRIEVE(NumDirLight);
+        MATERIAL_VARIABLE_RETRIEVE(NumPointLight);
+        MATERIAL_VARIABLE_RETRIEVE(NumSpotLight);
+        MATERIAL_VARIABLE_RETRIEVE(ColorTexture);
+        MATERIAL_VARIABLE_RETRIEVE(P);
 
         D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
         {

@@ -24,13 +24,18 @@ namespace Rendering
     {
         RTTI_DECLARATIONS(DefaultMaterial, Material)
 
-            MATERIAL_VARIABLE_DECLARATION(WorldViewProjection)
             MATERIAL_VARIABLE_DECLARATION(World)
+            MATERIAL_VARIABLE_DECLARATION(ViewProjection)
             MATERIAL_VARIABLE_DECLARATION(CamPos)
             MATERIAL_VARIABLE_DECLARATION(AmbientColor)
-            MATERIAL_VARIABLE_DECLARATION(LightColor)
-            MATERIAL_VARIABLE_DECLARATION(LightDirection)
+            MATERIAL_VARIABLE_DECLARATION(DirectLights)
+            MATERIAL_VARIABLE_DECLARATION(PointLights)
+            MATERIAL_VARIABLE_DECLARATION(SpotLights)
+            MATERIAL_VARIABLE_DECLARATION(NumDirLight)
+            MATERIAL_VARIABLE_DECLARATION(NumPointLight)
+            MATERIAL_VARIABLE_DECLARATION(NumSpotLight)
             MATERIAL_VARIABLE_DECLARATION(ColorTexture)
+            MATERIAL_VARIABLE_DECLARATION(P)
 
     public:
         DefaultMaterial();

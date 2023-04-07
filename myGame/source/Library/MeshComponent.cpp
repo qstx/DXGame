@@ -102,17 +102,17 @@ namespace Rendering
 		UINT stride = mMaterial->VertexSize();
 		UINT offset = 0;
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+		XMMATRIX vp = mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&(mGame->GetScene()->GetAmbientColor()));
 
-		mMaterial->WorldViewProjection() << wvp;
+		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;
 		mMaterial->CamPos() << mCamera->PositionVector();
 		mMaterial->AmbientColor() << ambientColor;
-		if (mGame->GetScene()->mMainDirectionalLight)
+		mMaterial->NumDirLight() << mGame->GetScene()->mDirectionalLights.size();
+		for (int i = 0; i < mGame->GetScene()->mDirectionalLights.size(); ++i)
 		{
-			mMaterial->LightColor() << mGame->GetScene()->mMainDirectionalLight->ColorVector();
-			mMaterial->LightDirection() << mGame->GetScene()->mMainDirectionalLight->DirectionVector();
+			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(mGame->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
 		}
 		mMaterial->ColorTexture() << mTextureShaderResourceView;
 

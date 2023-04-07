@@ -1,40 +1,26 @@
 // 方向光
 struct DirectionalLight
 {
-    float4 ambient;
-    float4 diffuse;
-    float4 specular;
-    float3 direction;
-    float pad;
+    float4 Color;
+    float3 Direction;
 };
 
 // 点光
 struct PointLight
 {
-    float4 ambient;
-    float4 diffuse;
-    float4 specular;
-
-    float3 position;
-    float range;
-
-    float3 att;
-    float pad;
+    float4 Color;
+    float3 Position;
+    float Range;
+    float3 Att;
 };
 
 // 聚光灯
 struct SpotLight
 {
-    float4 ambient;
-    float4 diffuse;
-    float4 specular;
-
-    float3 position;
-    float range;
-
-    float3 direction;
+    float4 Color;
+    float3 Position;
+    float Range;
+    float3 Direction;
     float Spot;
-
-    float3 att;
-    float pad;
+    float3 Att;
 };

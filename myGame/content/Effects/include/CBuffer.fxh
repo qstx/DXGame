@@ -4,29 +4,32 @@
 #define MaxPointLightNum 10
 #define MaxSpotLightNum 10
 
-cbuffer CBChangesEveryDrawing : register(b0)
+cbuffer CBChangesEveryDrawing
 {
-    matrix g_World;
+    float4x4 World : WORLD < string UIWidget="None"; >;
 }
 
-cbuffer CBChangesEveryFrame : register(b1)
+cbuffer CBChangesEveryFrame
 {
-    matrix g_View;
-    float3 g_EyePosW;
+    float4 CamPos : CAMPOSITION < string UIWidget="None"; >;
+    float4x4 ViewProjection : VIEWPROJECTION < string UIWidget="None"; >;
 }
 
-cbuffer CBChangesOnResize : register(b2)
+cbuffer CBChangesOnResize
 {
-    matrix g_Proj;
+    //matrix g_Proj;
 }
 
-cbuffer CBChangesRarely : register(b3)
+cbuffer CBChangesRarely
 {
-    float4 g_AmbientColor;
-    DirectionalLight g_DirLight[MaxDirextLightNum];
-    PointLight g_PointLight[MaxPointLightNum];
-    SpotLight g_SpotLight[MaxSpotLightNum];
-    int g_NumDirLight;
-    int g_NumPointLight;
-    int g_NumSpotLight;
+    float4 AmbientColor : AMBIENT <
+		string UIName =  "Ambient Light";
+		string UIWidget = "Color";
+	> = { 1.0f, 1.0f, 1.0f, 0.0f };
+    DirectionalLight DirectLights[MaxDirextLightNum];
+    PointLight PointLights[MaxPointLightNum];
+    SpotLight SpotLights[MaxSpotLightNum];
+    int NumDirLight = 0;
+    int NumPointLight = 0;
+    int NumSpotLight = 0;
 }
