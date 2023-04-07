@@ -103,13 +103,13 @@ namespace Rendering
 		XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&mAmbientColor);
 
-		mMaterial->WorldViewProjection() << wvp;
-		mMaterial->World() << worldMatrix;
-		mMaterial->CamPos() << mCamera->PositionVector();
-		mMaterial->AmbientColor() << ambientColor;
-		mMaterial->LightColor() << mDirectionalLight->ColorVector();
-		mMaterial->LightDirection() << mDirectionalLight->DirectionVector();
-		mMaterial->ColorTexture() << mTextureShaderResourceView;
+		//mMaterial->WorldViewProjection() << wvp;
+		//mMaterial->World() << worldMatrix;
+		//mMaterial->CamPos() << mCamera->PositionVector();
+		//mMaterial->AmbientColor() << ambientColor;
+		//mMaterial->LightColor() << mDirectionalLight->ColorVector();
+		//mMaterial->LightDirection() << mDirectionalLight->DirectionVector();
+		//mMaterial->ColorTexture() << mTextureShaderResourceView;
 
 		pass->Apply(0, direct3DDeviceContext);
 

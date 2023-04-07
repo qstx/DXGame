@@ -3,16 +3,11 @@
 #include "FirstPersonCamera.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "TriangleDemo.h"
-#include "ModelFromFile.h"
 #include "FpsComponent.h"
+#include "DemoScene.h"
 #include "RenderStateHelper.h"
-#include "ObjectDiffuseLight.h"
-#include "DefaultObject.h"
 #include "SamplerStates.h"
 #include "RasterizerStates.h"
-#include "DemoScene.h"
-#include "DemoGameObject.h"
 
 namespace Rendering
 {
@@ -23,6 +18,7 @@ namespace Rendering
         mDirectInput(nullptr),
         mKeyboard(nullptr),
         mMouse(nullptr),
+        mCamera(nullptr),
         mFpsComponent(nullptr),
         mRenderStateHelper(nullptr),
         mScene(nullptr)

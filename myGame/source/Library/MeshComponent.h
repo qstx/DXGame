@@ -42,9 +42,9 @@ namespace Rendering
 		Effect* mEffect;
 		DefaultMaterial* mMaterial;
 		ID3D11ShaderResourceView* mTextureShaderResourceView;
-		ID3D11Buffer* mVertexBuffer;
-		ID3D11Buffer* mIndexBuffer;
-		UINT mIndexCount;
+		std::vector<ID3D11Buffer*> mVertexBuffers;
+		std::vector<ID3D11Buffer*> mIndexBuffers;
+		std::vector <UINT> mIndexCounts;
 
 		XMFLOAT4X4 mWorldMatrix;
 
