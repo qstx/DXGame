@@ -18,7 +18,7 @@ namespace Rendering
             : Position(position), TextureCoordinates(textureCoordinates), Normal(normal)
         {
         }
-    } DiffuseLightingMaterialVertex;
+    } DefaultMaterialVertex;
 
     class DefaultMaterial : public Material
     {
@@ -37,7 +37,7 @@ namespace Rendering
 
         virtual void Initialize(Effect* effect) override;
         virtual void CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer) const override;
-        void CreateVertexBuffer(ID3D11Device* device, DiffuseLightingMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const;
+        void CreateVertexBuffer(ID3D11Device* device, DefaultMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const;
         virtual UINT VertexSize() const override;
     };
 }

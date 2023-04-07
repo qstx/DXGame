@@ -22,7 +22,7 @@ Library::DemoScene::~DemoScene()
 void Library::DemoScene::Update(const GameTime& gameTime)
 {
 	static float rotateY=0;
-	rotateY = gameTime.ElapsedGameTime()*3.14f;
+	rotateY = gameTime.ElapsedGameTime()*0.78f;
 	XMMATRIX RotationZ = XMMatrixRotationY(rotateY);
 	mMainDirectionalLight->ApplyRotation(RotationZ);
 }

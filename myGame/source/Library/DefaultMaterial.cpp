@@ -53,20 +53,20 @@ namespace Rendering
         const std::vector<XMFLOAT3>& normals = mesh.Normals();
         assert(textureCoordinates->size() == sourceVertices.size());
 
-        std::vector<_DefaultMaterialVertex> vertices;
+        std::vector<DefaultMaterialVertex> vertices;
         vertices.reserve(sourceVertices.size());
         for (UINT i = 0; i < sourceVertices.size(); i++)
         {
             XMFLOAT3 position = sourceVertices.at(i);
             XMFLOAT3 uv = textureCoordinates->at(i);
             XMFLOAT3 normal = normals.at(i);
-            vertices.push_back(_DefaultMaterialVertex(XMFLOAT4(position.x, position.y, position.z, 1.0f), XMFLOAT2(uv.x, uv.y), normal));
+            vertices.push_back(DefaultMaterialVertex(XMFLOAT4(position.x, position.y, position.z, 1.0f), XMFLOAT2(uv.x, uv.y), normal));
         }
 
         CreateVertexBuffer(device, &vertices[0], vertices.size(), vertexBuffer);
     }
 
-    void DefaultMaterial::CreateVertexBuffer(ID3D11Device* device, _DefaultMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const
+    void DefaultMaterial::CreateVertexBuffer(ID3D11Device* device, DefaultMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const
     {
         D3D11_BUFFER_DESC vertexBufferDesc;
         ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
@@ -85,6 +85,6 @@ namespace Rendering
 
     UINT DefaultMaterial::VertexSize() const
     {
-        return sizeof(_DefaultMaterialVertex);
+        return sizeof(DefaultMaterialVertex);
     }
 }
