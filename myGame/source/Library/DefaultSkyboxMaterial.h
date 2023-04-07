@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "Common.h"
 #include "Material.h"
 
@@ -14,11 +13,11 @@ namespace Rendering
 
         _DefaultSkyboxMaterialVertex() {}
 
-        _DefaultSkyboxMaterialVertex(XMFLOAT4 position, XMFLOAT2 textureCoordinates, XMFLOAT3 normal)
+        _DefaultSkyboxMaterialVertex(XMFLOAT4 position, XMFLOAT2 textureCoordinates)
             : Position(position), TextureCoordinates(textureCoordinates)
         {
         }
-    } DiffuseLightingMaterialVertex;
+    } DefaultSkyboxMaterialVertex;
 
     class DefaultSkyboxMaterial : public Material
     {
@@ -35,8 +34,7 @@ namespace Rendering
         DefaultSkyboxMaterial();
 
         virtual void Initialize(Effect* effect) override;
-        virtual void CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer) const override;
-        void CreateVertexBuffer(ID3D11Device* device, DiffuseLightingMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const;
+        void CreateVertexBuffer(ID3D11Device* device, DefaultSkyboxMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const;
         virtual UINT VertexSize() const override;
     };
 }

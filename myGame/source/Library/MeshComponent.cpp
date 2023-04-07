@@ -10,7 +10,6 @@
 #include "Utility.h"
 #include "DirectionalLight.h"
 #include <WICTextureLoader.h>
-#include "ProxyModel.h"
 #include "RasterizerStates.h"
 #include "RenderStateHelper.h"
 #include "Scene.h"

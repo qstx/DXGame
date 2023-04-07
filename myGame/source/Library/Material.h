@@ -25,7 +25,7 @@ namespace Library
 
         virtual void Initialize(Effect* effect);
         virtual void CreateVertexBuffer(ID3D11Device* device, const Model& model, std::vector<ID3D11Buffer*>& vertexBuffers) const;
-        virtual void CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer) const = 0; 
+        virtual void CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer) const; 
         virtual UINT VertexSize() const = 0;
 
     protected:
