@@ -12,6 +12,7 @@
 #include <WICTextureLoader.h>
 #include "RasterizerStates.h"
 #include "RenderStateHelper.h"
+#include "DepthStencilStates.h"
 #include "Scene.h"
 #include <sstream>
 
@@ -116,16 +117,12 @@ namespace Rendering
 		mMaterial->ColorTexture() << mTextureShaderResourceView;
 
 		pass->Apply(0, direct3DDeviceContext);
-
-		mRenderStateHelper->SaveAll();
-		direct3DDeviceContext->RSSetState(RasterizerStates::DisabledCulling);
 		for (int i = 0; i < mVertexBuffers.size(); ++i)
 		{
 			direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffers[i], &stride, &offset);
 			direct3DDeviceContext->IASetIndexBuffer(mIndexBuffers[i], DXGI_FORMAT_R32_UINT, 0);
-
+			//direct3DDeviceContext->OMSetDepthStencilState(Library::DepthStencilStates::DepthGreaterEqual, 0);
 			direct3DDeviceContext->DrawIndexed(mIndexCounts[i], 0, 0);
 		}
-		mRenderStateHelper->RestoreAll();
 	}
 }

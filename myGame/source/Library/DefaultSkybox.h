@@ -9,6 +9,7 @@ namespace Library
 	class Camera;
 	class Game;
 	class Effect;
+	class RenderStateHelper;
 }
 
 namespace Rendering
@@ -32,5 +33,6 @@ namespace Rendering
 	private:
 		Effect* mEffect;
 		DefaultSkyboxMaterial* mMaterial;
+		RenderStateHelper* mRenderStateHelper;
 	};
 }

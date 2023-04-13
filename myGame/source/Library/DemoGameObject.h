@@ -8,6 +8,7 @@ namespace Library
 {
 	class Camera;
 	class Game;
+	class RenderStateHelper;
 }
 
 namespace Rendering
@@ -19,9 +20,12 @@ namespace Rendering
 	public:
 		DemoGameObject(Game& game);
 		virtual ~DemoGameObject();
+		virtual void Draw(const GameTime& gamTime) override;
 
 	protected:
 		DemoGameObject(const DemoGameObject& rhs);
 		DemoGameObject& operator=(const DemoGameObject& rhs);
+	private:
+		RenderStateHelper* mRenderStateHelper;
 	};
 }
