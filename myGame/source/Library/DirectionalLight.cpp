@@ -14,6 +14,18 @@ namespace Library
 	{
 	}
 
+	void DirectionalLight::Initialize()
+	{
+		data.color = ColorFloat4();
+		data.direct = Direction();
+	}
+
+	void DirectionalLight::Update(const GameTime& gameTime)
+	{
+		//data.color = ColorFloat4();
+		//data.direct = Direction();
+	}
+
 	const XMFLOAT3& DirectionalLight::Direction() const
 	{
 		return mDirection;
@@ -44,6 +56,11 @@ namespace Library
 		return XMLoadFloat3(&mRight);
 	}
 
+	void* DirectionalLight::GetData() const
+	{
+		return (void*)&data;
+	}
+
 	void DirectionalLight::ApplyRotation(CXMMATRIX transform)
     {
         XMVECTOR direction = XMLoadFloat3(&mDirection);
@@ -61,6 +78,7 @@ namespace Library
         XMStoreFloat3(&mDirection, direction);
         XMStoreFloat3(&mUp, up);
         XMStoreFloat3(&mRight, right);
+		data.direct = mDirection;
     }
 
     void DirectionalLight::ApplyRotation(const XMFLOAT4X4& transform)

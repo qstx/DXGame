@@ -89,6 +89,10 @@ namespace Library
         }
     }
 
+    void Material::CreateVertexBuffer(ID3D11Device* device, const Mesh& mesh, ID3D11Buffer** vertexBuffer) const
+    {
+    }
+
     void Material::CreateInputLayout(const std::string& techniqueName, const std::string& passName, D3D11_INPUT_ELEMENT_DESC* inputElementDescriptions, UINT inputElementDescriptionCount)
     {
         Technique* technique = mEffect->TechniquesByName().at(techniqueName);

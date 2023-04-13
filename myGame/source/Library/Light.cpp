@@ -24,6 +24,11 @@ namespace Library
 		return XMLoadColor(&mColor);
 	}
 
+	XMFLOAT4 Light::ColorFloat4() const
+	{
+		return XMFLOAT4(mColor.r / 255.0f, mColor.g / 255.0f, mColor.b / 255.0f, mColor.a / 255.0f);
+	}
+
 	void Light::SetColor(FLOAT r, FLOAT g, FLOAT b, FLOAT a)
 	{
 		XMCOLOR color(r, g, b, a);

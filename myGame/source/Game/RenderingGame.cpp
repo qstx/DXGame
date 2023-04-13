@@ -3,16 +3,12 @@
 #include "FirstPersonCamera.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "TriangleDemo.h"
-#include "ModelFromFile.h"
 #include "FpsComponent.h"
+#include "DemoScene.h"
 #include "RenderStateHelper.h"
-#include "ObjectDiffuseLight.h"
-#include "DefaultObject.h"
 #include "SamplerStates.h"
 #include "RasterizerStates.h"
-#include "DemoScene.h"
-#include "DemoGameObject.h"
+#include "DepthStencilStates.h"
 
 namespace Rendering
 {
@@ -23,6 +19,7 @@ namespace Rendering
         mDirectInput(nullptr),
         mKeyboard(nullptr),
         mMouse(nullptr),
+        mCamera(nullptr),
         mFpsComponent(nullptr),
         mRenderStateHelper(nullptr),
         mScene(nullptr)
@@ -58,9 +55,10 @@ namespace Rendering
         mRenderStateHelper = new RenderStateHelper(*this);
         RasterizerStates::Initialize(mDirect3DDevice);
         SamplerStates::Initialize(mDirect3DDevice);
+        DepthStencilStates::Initialize(mDirect3DDevice);
 
         Game::Initialize();
-		mCamera->SetPosition(0.0f, 0.0f, 15.0f);
+		mCamera->SetPosition(0.0f, 0.0f, 0.2f);
 
         mScene = new DemoScene(*this, *mCamera);
         mScene->Initialize();
@@ -73,6 +71,7 @@ namespace Rendering
 
         RasterizerStates::Release();
         SamplerStates::Release();
+        DepthStencilStates::Release();
         Game::Shutdown();
 
 		DeleteObject(mFpsComponent);

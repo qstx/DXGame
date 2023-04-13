@@ -10,8 +10,9 @@
 #include "Utility.h"
 #include "DirectionalLight.h"
 #include <WICTextureLoader.h>
-#include "ProxyModel.h"
+#include "RasterizerStates.h"
 #include "RenderStateHelper.h"
+#include "DepthStencilStates.h"
 #include "Scene.h"
 #include <sstream>
 
@@ -21,7 +22,6 @@ namespace Rendering
 
 		MeshComponent::MeshComponent(Game& game, const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath)
 		: DrawableGameComponent(game, *(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
-		mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		mWorldMatrix(MatrixHelper::Identity),
 		mRenderStateHelper(nullptr),
 		mModelFilePath(modelFilePath),mShaderFilePath(shaderFilePath),mTexFilePath(texFilePath)
@@ -34,8 +34,11 @@ namespace Rendering
 		ReleaseObject(mTextureShaderResourceView);
 		DeleteObject(mMaterial);
 		DeleteObject(mEffect);
-		ReleaseObject(mVertexBuffer);
-		ReleaseObject(mIndexBuffer);
+		for (int i = 0; i < mVertexBuffers.size(); ++i)
+		{
+			ReleaseObject(mVertexBuffers[i]);
+			ReleaseObject(mIndexBuffers[i]);
+		}	
 	}
 
 	void MeshComponent::SetPosition(const float rotateX, const float rotateY, const float rotateZ, const float scaleFactor, const float translateX, const float translateY, const float translateZ)
@@ -54,7 +57,6 @@ namespace Rendering
 	void MeshComponent::Initialize()
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
-
 		std::unique_ptr<Model> model(new Model(*mGame, mModelFilePath, false));
 
 		// Initialize the material
@@ -63,11 +65,17 @@ namespace Rendering
 		mMaterial = new DefaultMaterial();
 		mMaterial->Initialize(mEffect);
 
-		Mesh* mesh = model->Meshes().at(0);
-		mMaterial->CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffer);
-		mesh->CreateIndexBuffer(&mIndexBuffer);
-		mIndexCount = mesh->Indices().size();
-
+		mVertexBuffers.resize(model->Meshes().size());
+		mIndexBuffers.resize(model->Meshes().size());
+		mIndexCounts.resize(model->Meshes().size());
+		for (int i = 0; i < model->Meshes().size(); ++i)
+		{
+			Mesh* mesh = model->Meshes().at(i);
+			mMaterial->CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffers[i]);
+			mesh->CreateIndexBuffer(&mIndexBuffers[i]);
+			mIndexCounts[i] = mesh->Indices().size();
+		}
+		
 		HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
 		if (FAILED(hr))
 		{
@@ -93,28 +101,28 @@ namespace Rendering
 
 		UINT stride = mMaterial->VertexSize();
 		UINT offset = 0;
-		direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
-		direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+		XMMATRIX vp = mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&(mGame->GetScene()->GetAmbientColor()));
 
-		mMaterial->WorldViewProjection() << wvp;
+		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;
 		mMaterial->CamPos() << mCamera->PositionVector();
 		mMaterial->AmbientColor() << ambientColor;
-		if (mGame->GetScene()->mMainDirectionalLight)
+		mMaterial->NumDirLight() << mGame->GetScene()->mDirectionalLights.size();
+		for (int i = 0; i < mGame->GetScene()->mDirectionalLights.size(); ++i)
 		{
-			mMaterial->LightColor() << mGame->GetScene()->mMainDirectionalLight->ColorVector();
-			mMaterial->LightDirection() << mGame->GetScene()->mMainDirectionalLight->DirectionVector();
+			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(mGame->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
 		}
 		mMaterial->ColorTexture() << mTextureShaderResourceView;
 
 		pass->Apply(0, direct3DDeviceContext);
-
-		mRenderStateHelper->SaveAll();
-		direct3DDeviceContext->DrawIndexed(mIndexCount, 0, 0);
-		mRenderStateHelper->RestoreAll();
+		for (int i = 0; i < mVertexBuffers.size(); ++i)
+		{
+			direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffers[i], &stride, &offset);
+			direct3DDeviceContext->IASetIndexBuffer(mIndexBuffers[i], DXGI_FORMAT_R32_UINT, 0);
+			//direct3DDeviceContext->OMSetDepthStencilState(Library::DepthStencilStates::DepthGreaterEqual, 0);
+			direct3DDeviceContext->DrawIndexed(mIndexCounts[i], 0, 0);
+		}
 	}
 }

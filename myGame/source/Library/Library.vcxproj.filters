@@ -195,6 +195,12 @@
     <ClInclude Include="DefaultSkybox.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="DepthStencilStates.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMeshComponent.h">
+      <Filter>Components\MeshComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variable.cpp">
@@ -319,6 +325,12 @@
     </ClCompile>
     <ClCompile Include="DefaultSkybox.cpp">
       <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilStates.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeMeshComponent.cpp">
+      <Filter>Components\MeshComponent</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,32 +6,13 @@ namespace Rendering
 	RTTI_DEFINITIONS(DefaultSkyboxMaterial);
 
 	DefaultSkyboxMaterial::DefaultSkyboxMaterial() :
-		Material("main11"),
-		MATERIAL_VARIABLE_INITIALIZATION(SkyboxTexture0),
-		MATERIAL_VARIABLE_INITIALIZATION(SkyboxTexture1),
-		MATERIAL_VARIABLE_INITIALIZATION(SkyboxTexture2),
-		MATERIAL_VARIABLE_INITIALIZATION(SkyboxTexture3),
-		MATERIAL_VARIABLE_INITIALIZATION(SkyboxTexture4),
-		MATERIAL_VARIABLE_INITIALIZATION(SkyboxTexture5)
+		Material("main11")
 	{
 	}
-	MATERIAL_VARIABLE_DEFINITION(DefaultSkyboxMaterial, SkyboxTexture0);
-	MATERIAL_VARIABLE_DEFINITION(DefaultSkyboxMaterial, SkyboxTexture1);
-	MATERIAL_VARIABLE_DEFINITION(DefaultSkyboxMaterial, SkyboxTexture2);
-	MATERIAL_VARIABLE_DEFINITION(DefaultSkyboxMaterial, SkyboxTexture3);
-	MATERIAL_VARIABLE_DEFINITION(DefaultSkyboxMaterial, SkyboxTexture4);
-	MATERIAL_VARIABLE_DEFINITION(DefaultSkyboxMaterial, SkyboxTexture5);
 
 	void DefaultSkyboxMaterial::Initialize(Effect* effect)
 	{
 		Material::Initialize(effect);
-
-		MATERIAL_VARIABLE_RETRIEVE(SkyboxTexture0);
-		MATERIAL_VARIABLE_RETRIEVE(SkyboxTexture1);
-		MATERIAL_VARIABLE_RETRIEVE(SkyboxTexture2);
-		MATERIAL_VARIABLE_RETRIEVE(SkyboxTexture3);
-		MATERIAL_VARIABLE_RETRIEVE(SkyboxTexture4);
-		MATERIAL_VARIABLE_RETRIEVE(SkyboxTexture5);
 
 		D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
 		{
@@ -42,7 +23,7 @@ namespace Rendering
 		CreateInputLayout("main11", "p0", inputElementDescriptions, ARRAYSIZE(inputElementDescriptions));
 	}
 
-	void DefaultSkyboxMaterial::CreateVertexBuffer(ID3D11Device* device, _DefaultSkyboxMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const
+	void DefaultSkyboxMaterial::CreateVertexBuffer(ID3D11Device* device, DefaultSkyboxMaterialVertex* vertices, UINT vertexCount, ID3D11Buffer** vertexBuffer) const
 	{
 		D3D11_BUFFER_DESC vertexBufferDesc;
 		ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));

@@ -22,12 +22,14 @@
     <ClInclude Include="BasicMaterial.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="CubeMeshComponent.h" />
     <ClInclude Include="DefaultMaterial.h" />
     <ClInclude Include="DefaultObject.h" />
     <ClInclude Include="DefaultSkybox.h" />
     <ClInclude Include="DefaultSkyboxMaterial.h" />
     <ClInclude Include="DemoGameObject.h" />
     <ClInclude Include="DemoScene.h" />
+    <ClInclude Include="DepthStencilStates.h" />
     <ClInclude Include="DiffuseLightingMaterial.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="DrawableGameComponent.h" />
@@ -66,12 +68,14 @@
   <ItemGroup>
     <ClCompile Include="BasicMaterial.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMeshComponent.cpp" />
     <ClCompile Include="DefaultMaterial.cpp" />
     <ClCompile Include="DefaultObject.cpp" />
     <ClCompile Include="DefaultSkybox.cpp" />
     <ClCompile Include="DefaultSkyboxMaterial.cpp" />
     <ClCompile Include="DemoGameObject.cpp" />
     <ClCompile Include="DemoScene.cpp" />
+    <ClCompile Include="DepthStencilStates.cpp" />
     <ClCompile Include="DiffuseLightingMaterial.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="DrawableGameComponent.cpp" />
@@ -177,7 +181,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)..\..\external\Effects11\include;$(SolutionDir)..\..\external\DirectXTK\include;$(SolutionDir)..\..\external\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)..\..\external\FX11\inc;$(SolutionDir)..\..\external\DirectXTK\Inc;$(SolutionDir)..\..\external\assimp\build\include;$(SolutionDir)..\..\external\assimp\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

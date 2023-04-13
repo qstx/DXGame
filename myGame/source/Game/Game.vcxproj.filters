@@ -58,6 +58,9 @@
     <FxCompile Include="..\..\content\Effects\DefaultLighting.fx">
       <Filter>Contents\Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="..\..\content\Effects\DefaultSkybox.fx">
+      <Filter>Contents\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\content\Effects\include\Common.fxh">
@@ -65,6 +68,12 @@
     </None>
     <None Include="..\..\content\Effects\BasicEffect.fx">
       <Filter>Contents\Shaders</Filter>
+    </None>
+    <None Include="..\..\content\Effects\include\Light.fxh">
+      <Filter>Contents\Shaders\include</Filter>
+    </None>
+    <None Include="..\..\content\Effects\include\CBuffer.fxh">
+      <Filter>Contents\Shaders\include</Filter>
     </None>
   </ItemGroup>
 </Project>
