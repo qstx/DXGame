@@ -8,6 +8,7 @@
 #include "RenderStateHelper.h"
 #include "SamplerStates.h"
 #include "RasterizerStates.h"
+#include "DepthStencilStates.h"
 
 namespace Rendering
 {
@@ -54,9 +55,10 @@ namespace Rendering
         mRenderStateHelper = new RenderStateHelper(*this);
         RasterizerStates::Initialize(mDirect3DDevice);
         SamplerStates::Initialize(mDirect3DDevice);
+        DepthStencilStates::Initialize(mDirect3DDevice);
 
         Game::Initialize();
-		mCamera->SetPosition(0.0f, 0.0f, 15.0f);
+		mCamera->SetPosition(0.0f, 0.0f, 0.2f);
 
         mScene = new DemoScene(*this, *mCamera);
         mScene->Initialize();
@@ -69,6 +71,7 @@ namespace Rendering
 
         RasterizerStates::Release();
         SamplerStates::Release();
+        DepthStencilStates::Release();
         Game::Shutdown();
 
 		DeleteObject(mFpsComponent);
