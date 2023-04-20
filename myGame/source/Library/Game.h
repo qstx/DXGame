@@ -47,6 +47,7 @@ namespace Library
 		virtual void InitializeWindow();
 		virtual void InitializeDirectX();
 		virtual void Shutdown();
+		virtual void OnResize();
 
 		static const UINT DefaultScreenWidth;
 		static const UINT DefaultScreenHeight;

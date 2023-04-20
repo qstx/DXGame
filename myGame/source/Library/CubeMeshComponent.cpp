@@ -10,6 +10,7 @@
 #include "Utility.h"
 #include "DirectionalLight.h"
 #include <WICTextureLoader.h>
+#include <DDSTextureLoader.h>
 #include "ProxyModel.h"
 #include "RasterizerStates.h"
 #include "DepthStencilStates.h"
@@ -29,7 +30,7 @@ namespace Rendering
 		mShaderFilePath(shaderFilePath), mTexFilePath(texFilePath),
 		mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0)
 	{
-		//mCubeTextureShaderResourceViews = new ID3D11ShaderResourceView*[6];
+
 	}
 
 	CubeMeshComponent::~CubeMeshComponent()
@@ -129,19 +130,12 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 			throw GameException("ID3D11Device::CreateBuffer() failed.");
 		}
 		mIndexCount = 36;
-		HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
+		//HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
+		HRESULT hr = DirectX::CreateDDSTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
 		if (FAILED(hr))
 		{
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
-		//for (int i = 0; i < 6; ++i)
-		//{
-		//	HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &(mCubeTextureShaderResourceViews[i]));
-		//	if (FAILED(hr))
-		//	{
-		//		throw GameException("CreateWICTextureFromFile() failed.", hr);
-		//	}
-		//}
 		mRenderStateHelper = new RenderStateHelper(*mGame);
 	}
 
@@ -173,8 +167,7 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 		{
 			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(mGame->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
 		}
-		//mMaterial->ColorTexture() << mCubeTextureShaderResourceViews[0];
-		//mMaterial->ColorTexture().GetVariable()->AsShaderResource()->SetResourceArray(mCubeTextureShaderResourceViews, 0, 6);
+		mMaterial->ColorTexture() << mTextureShaderResourceView;
 
 		pass->Apply(0, direct3DDeviceContext);
 

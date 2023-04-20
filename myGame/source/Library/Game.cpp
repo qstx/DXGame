@@ -126,7 +126,6 @@ namespace Library
 				Draw(mGameTime);
 			}
 		}
-
 		Shutdown();
 	}
 
@@ -151,6 +150,62 @@ namespace Library
 		ReleaseObject(mDirect3DDevice);
 
 		UnregisterClass(mWindowClass.c_str(), mWindow.hInstance);
+	}
+
+	void Game::OnResize()
+	{
+		assert(mDirect3DDeviceContext);
+		assert(mDirect3DDevice);
+		assert(mSwapChain);
+
+		HRESULT hr;
+		//5. create the depth-stencil view
+		if (mDepthStencilBufferEnabled)
+		{
+			D3D11_TEXTURE2D_DESC depthStencilDesc;
+			ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
+			depthStencilDesc.Width = mScreenWidth;
+			depthStencilDesc.Height = mScreenHeight;
+			depthStencilDesc.MipLevels = 1;
+			depthStencilDesc.ArraySize = 1;
+			depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+			depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+			depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+
+			if (mMultiSamplingEnabled)
+			{
+				depthStencilDesc.SampleDesc.Count = mMultiSamplingCount;
+				depthStencilDesc.SampleDesc.Quality = mMultiSamplingQualityLevels - 1;
+			}
+			else
+			{
+				depthStencilDesc.SampleDesc.Count = 1;
+				depthStencilDesc.SampleDesc.Quality = 0;
+			}
+
+			if (FAILED(hr = mDirect3DDevice->CreateTexture2D(&depthStencilDesc, nullptr, &mDepthStencilBuffer)))
+			{
+				throw GameException("IDXGIDevice::CreateTexture2D() failed.", hr);
+			}
+
+			if (FAILED(hr = mDirect3DDevice->CreateDepthStencilView(mDepthStencilBuffer, nullptr, &mDepthStencilView)))
+			{
+				throw GameException("IDXGIDevice::CreateDepthStencilView() failed.", hr);
+			}
+		}
+
+		//6. Associate render target view and depth-stencil view with the output-merger stage
+		mDirect3DDeviceContext->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
+
+		//7. Set the view port
+		mViewport.TopLeftX = 0.0f;
+		mViewport.TopLeftY = 0.0f;
+		mViewport.Width = static_cast<float>(mScreenWidth);
+		mViewport.Height = static_cast<float>(mScreenHeight);
+		mViewport.MinDepth = 0.0f;
+		mViewport.MaxDepth = 1.0f;
+
+		mDirect3DDeviceContext->RSSetViewports(1, &mViewport);
 	}
 
 	void Game::Initialize()
@@ -377,7 +432,6 @@ namespace Library
 
 		mDirect3DDeviceContext->RSSetViewports(1, &mViewport);
 	}
-
 
 	LRESULT WINAPI Game::WndProc(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam)
 	{
