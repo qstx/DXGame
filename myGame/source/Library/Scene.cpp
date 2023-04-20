@@ -6,7 +6,7 @@ namespace Library
 {
 	Scene::Scene(Game& game, Camera& camera):
 		mGame(game),mCamera(camera),
-		mAmbientColor(1, 1, 1, 0.3)
+		mAmbientColor(1, 1, 1, 0.5)
 		//mMainDirectionalLight(nullptr)
 	{
 	}

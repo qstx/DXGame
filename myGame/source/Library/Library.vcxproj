@@ -165,6 +165,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <TargetName>$(ProjectName)d</TargetName>
+    <IncludePath>$(SolutionDir)..\..\external\FX11\inc;$(SolutionDir)..\..\external\DirectXTK\Inc;$(SolutionDir)..\..\external\DirectXTK\Src;$(SolutionDir)..\..\external\assimp\build\include;$(SolutionDir)..\..\external\assimp\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -181,7 +182,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);$(SolutionDir)..\..\external\FX11\inc;$(SolutionDir)..\..\external\DirectXTK\Inc;$(SolutionDir)..\..\external\assimp\build\include;$(SolutionDir)..\..\external\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

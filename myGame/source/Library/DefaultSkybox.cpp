@@ -11,7 +11,7 @@ namespace Rendering
 
 	DefaultSkybox::DefaultSkybox(Game& game) :GameObject(game),mRenderStateHelper(new RenderStateHelper(game))
 	{
-		mGameComponents.push_back(new CubeMeshComponent(game, L"Content\\Effects\\DefaultSkybox.cso", L"Content\\Textures\\bench.jpg"));
+		mGameComponents.push_back(new CubeMeshComponent(game, L"Content\\Effects\\DefaultSkybox.cso", L"Content\\Textures\\desertcube1024.dds"));
 	}
 	DefaultSkybox::~DefaultSkybox()
 	{

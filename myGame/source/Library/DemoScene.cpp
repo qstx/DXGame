@@ -15,10 +15,11 @@ Library::DemoScene::DemoScene(Game& game, Camera& camera):
 	//mMainDirectionalLight = new DirectionalLight(game);
 	//mMainDirectionalLight->SetColor(1, 0, 0, 0.5);
 	DirectionalLight* dl = new DirectionalLight(game);
+	dl->SetColor(1, 1, 1, 0.5);
 	mDirectionalLights.push_back(dl);
-	dl = new DirectionalLight(game);
-	dl->SetColor(0, 0, 1, 0.2);
-	mDirectionalLights.push_back(dl);
+	//dl = new DirectionalLight(game);
+	//dl->SetColor(0, 0, 1, 0.2);
+	//mDirectionalLights.push_back(dl);
 }
 
 Library::DemoScene::~DemoScene()

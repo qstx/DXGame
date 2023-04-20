@@ -43,8 +43,8 @@ VS_OUTPUT vertex_shader(VS_INPUT IN)
 
 float4 pixel_shader(VS_OUTPUT IN) : SV_Target
 {
-    float4 OUT = float4(IN.WorldPosition.xyz + (float3)0.5f, 1.0f);
-    //float4 OUT = ColorTexture.Sample(ColorSampler, IN.WorldPosition.xyz);
+    //float4 OUT = float4(IN.WorldPosition.xyz + (float3)0.5f, 1.0f);
+    float4 OUT = ColorTexture.Sample(ColorSampler, IN.WorldPosition.xyz);
     return OUT;
 }
 

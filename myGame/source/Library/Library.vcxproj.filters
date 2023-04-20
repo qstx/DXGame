@@ -180,9 +180,6 @@
     <ClInclude Include="DemoGameObject.h">
       <Filter>Utils\GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="DemoScene.h">
-      <Filter>Utils\GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="MeshComponent.h">
       <Filter>Components\MeshComponent</Filter>
     </ClInclude>
@@ -200,6 +197,9 @@
     </ClInclude>
     <ClInclude Include="CubeMeshComponent.h">
       <Filter>Components\MeshComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScene.h">
+      <Filter>Utils\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +311,6 @@
     <ClCompile Include="DemoGameObject.cpp">
       <Filter>Utils\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="DemoScene.cpp">
-      <Filter>Utils\GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="MeshComponent.cpp">
       <Filter>Components\MeshComponent</Filter>
     </ClCompile>
@@ -331,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="CubeMeshComponent.cpp">
       <Filter>Components\MeshComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScene.cpp">
+      <Filter>Utils\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
