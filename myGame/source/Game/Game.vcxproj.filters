@@ -61,6 +61,9 @@
     <FxCompile Include="..\..\content\Effects\DefaultSkybox.fx">
       <Filter>Contents\Shaders</Filter>
     </FxCompile>
+    <FxCompile Include="..\..\content\Effects\PBREffect.fx">
+      <Filter>Contents\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\content\Effects\include\Common.fxh">

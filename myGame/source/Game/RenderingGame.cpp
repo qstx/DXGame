@@ -58,7 +58,7 @@ namespace Rendering
         DepthStencilStates::Initialize(mDirect3DDevice);
 
         Game::Initialize();
-		mCamera->SetPosition(0.0f, 1.0f, 5.0f);
+		mCamera->SetPosition(0.0f, 1.8f, 5.0f);
 
         mScene = new DemoScene(*mCamera);
         mScene->Initialize();

@@ -210,6 +210,15 @@
     <ClInclude Include="Singleton.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="PBRMaterial.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="PBRMeshComponent.h">
+      <Filter>Components\MeshComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="PBRGameObject.h">
+      <Filter>Utils\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variable.cpp">
@@ -343,6 +352,15 @@
     </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="PBRMaterial.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="PBRMeshComponent.cpp">
+      <Filter>Components\MeshComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="PBRGameObject.cpp">
+      <Filter>Utils\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

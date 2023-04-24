@@ -1,6 +1,7 @@
 #include "DemoScene.h"
 #include "GameTime.h"
 #include "DemoGameObject.h"
+#include "PBRGameObject.h"
 #include "DirectionalLight.h"
 #include "TriangleDemo.h"
 #include "MatrixHelper.h"
@@ -9,13 +10,14 @@
 Library::DemoScene::DemoScene(Camera& camera):
 	Scene(camera)
 {
-	mGameObjects.push_back(new Rendering::DemoGameObject());
+	mAmbientColor = XMCOLOR(1, 1, 1, 0.3);
+	mGameObjects.push_back(new Rendering::PBRGameObject());
 	mGameObjects.push_back(new Rendering::DefaultSkybox());
 	//mLights.push_back(new DirectionalLight(game));
 	//mMainDirectionalLight = new DirectionalLight(game);
 	//mMainDirectionalLight->SetColor(1, 0, 0, 0.5);
 	DirectionalLight* dl = new DirectionalLight();
-	dl->SetColor(1, 1, 1, 0.5);
+	dl->SetColor(1, 1, 1, 0.05);
 	mDirectionalLights.push_back(dl);
 	//dl = new DirectionalLight(game);
 	//dl->SetColor(0, 0, 1, 0.2);

@@ -52,6 +52,8 @@
     <ClInclude Include="ModelMaterial.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Pass.h" />
+    <ClInclude Include="PBRMaterial.h" />
+    <ClInclude Include="PBRMeshComponent.h" />
     <ClInclude Include="ProxyModel.h" />
     <ClInclude Include="RasterizerStates.h" />
     <ClInclude Include="RenderStateHelper.h" />
@@ -66,6 +68,7 @@
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Variable.h" />
     <ClInclude Include="VectorHelper.h" />
+    <ClInclude Include="PBRGameObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BasicMaterial.cpp" />
@@ -100,6 +103,9 @@
     <ClCompile Include="ModelMaterial.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Pass.cpp" />
+    <ClCompile Include="PBRGameObject.cpp" />
+    <ClCompile Include="PBRMaterial.cpp" />
+    <ClCompile Include="PBRMeshComponent.cpp" />
     <ClCompile Include="ProxyModel.cpp" />
     <ClCompile Include="RasterizerStates.cpp" />
     <ClCompile Include="RenderStateHelper.cpp" />

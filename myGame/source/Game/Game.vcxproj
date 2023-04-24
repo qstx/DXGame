@@ -192,6 +192,11 @@ IF EXIST "$(SolutionDir)..\content" xcopy /E /Y  "$(SolutionDir)..\content" "$(O
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\Content\Effects\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <FxCompile Include="..\..\content\Effects\PBREffect.fx">
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\Content\Effects\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="..\..\content\Effects\TextureMapping.fx">
       <FileType>Document</FileType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>

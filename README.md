@@ -15,10 +15,14 @@
 
   ![Jinx](./ScreenShots/Skybox.gif)
 
+- PBR(没有Kulla-Conty补偿);
+  
+  ![Jinx](./ScreenShots/PBR_NoKulla-Conty.gif)
+
 TODOs
 ------
 
-- PBR
+- PBR(Kulla-Conty)
 
 - Shadow Map
 
