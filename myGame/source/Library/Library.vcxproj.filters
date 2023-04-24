@@ -219,6 +219,9 @@
     <ClInclude Include="PBRGameObject.h">
       <Filter>Utils\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="SubstanceBoy.h">
+      <Filter>Utils\GameObjects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Variable.cpp">
@@ -360,6 +363,9 @@
       <Filter>Components\MeshComponent</Filter>
     </ClCompile>
     <ClCompile Include="PBRGameObject.cpp">
+      <Filter>Utils\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="SubstanceBoy.cpp">
       <Filter>Utils\GameObjects</Filter>
     </ClCompile>
   </ItemGroup>

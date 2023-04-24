@@ -17,18 +17,21 @@ namespace Rendering
 {
 	RTTI_DEFINITIONS(PBRMeshComponent)
 
-		PBRMeshComponent::PBRMeshComponent(const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath)
-		: mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		PBRMeshComponent::PBRMeshComponent(const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring albedoTexFilePath, const std::wstring normalTexFilePath, const std::wstring metallicRoughnessTexFilePath)
+		: mEffect(nullptr), mMaterial(nullptr), mAlbedoTextureShaderResourceView(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),
 		mRenderStateHelper(nullptr),
-		mModelFilePath(modelFilePath), mShaderFilePath(shaderFilePath), mTexFilePath(texFilePath)
+		mModelFilePath(modelFilePath), mShaderFilePath(shaderFilePath), 
+		mAlbedoTexFilePath(albedoTexFilePath),mNormalTexFilePath(normalTexFilePath),mMetallicRoughnessTexFilePath(metallicRoughnessTexFilePath)
 	{
 	}
 
 	PBRMeshComponent::~PBRMeshComponent()
 	{
 		DeleteObject(mRenderStateHelper);
-		ReleaseObject(mTextureShaderResourceView);
+		ReleaseObject(mAlbedoTextureShaderResourceView);
+		ReleaseObject(mNormalTextureShaderResourceView);
+		ReleaseObject(mMetallicRoughnessTextureShaderResourceView);
 		DeleteObject(mMaterial);
 		DeleteObject(mEffect);
 		for (int i = 0; i < mVertexBuffers.size(); ++i)
@@ -73,12 +76,27 @@ namespace Rendering
 			mIndexCounts[i] = mesh->Indices().size();
 		}
 
-		HRESULT hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
+		HRESULT hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), mAlbedoTexFilePath.c_str(), nullptr, &mAlbedoTextureShaderResourceView);
 		if (FAILED(hr))
 		{
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
-
+		if (mNormalTexFilePath.size())
+		{
+			hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), mNormalTexFilePath.c_str(), nullptr, &mNormalTextureShaderResourceView);
+			if (FAILED(hr))
+			{
+				throw GameException("CreateWICTextureFromFile() failed.", hr);
+			}
+		}
+		if (mMetallicRoughnessTexFilePath.size())
+		{
+			hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), mMetallicRoughnessTexFilePath.c_str(), nullptr, &mMetallicRoughnessTextureShaderResourceView);
+			if (FAILED(hr))
+			{
+				throw GameException("CreateWICTextureFromFile() failed.", hr);
+			}
+		}
 		mRenderStateHelper = new RenderStateHelper();
 	}
 
@@ -111,7 +129,11 @@ namespace Rendering
 		{
 			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(Game::GetInstance()->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
 		}
-		mMaterial->AlbedoTexture() << mTextureShaderResourceView;
+		mMaterial->AlbedoTexture() << mAlbedoTextureShaderResourceView;
+		if (mNormalTextureShaderResourceView)
+			mMaterial->NormalTexture() << mNormalTextureShaderResourceView;
+		if (mMetallicRoughnessTextureShaderResourceView)
+			mMaterial->MetallicRoughnessTexture() << mMetallicRoughnessTextureShaderResourceView;
 		pass->Apply(0, direct3DDeviceContext);
 		for (int i = 0; i < mVertexBuffers.size(); ++i)
 		{

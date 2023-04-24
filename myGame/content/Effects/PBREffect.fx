@@ -5,8 +5,7 @@
 /************* Resources *************/
 Texture2D AlbedoTexture;
 Texture2D NormalTexture;
-Texture2D MetallicTexture;
-Texture2D RoughnessTexture;
+Texture2D MetallicRoughnessTexture;
 
 SamplerState ColorSampler
 {
@@ -40,7 +39,7 @@ VS_OUTPUT vertex_shader(VS_INPUT IN)
     OUT.Position = mul(IN.ObjectPosition, mul(World, ViewProjection));
     OUT.WorldPosition = mul(IN.ObjectPosition, World);
     OUT.TextureCoordinate = get_corrected_texture_coordinate(IN.TextureCoordinate);
-    OUT.Normal = normalize(mul(float4(IN.Normal, 0), World).xyz);
+    OUT.Normal = normalize(mul(float4(IN.Normal, 0), World).xyz); //NormalTexture.Sample(ColorSampler, IN.TextureCoordinate);
 	
     return OUT;
 }
@@ -49,10 +48,11 @@ VS_OUTPUT vertex_shader(VS_INPUT IN)
 
 float4 pixel_shader(VS_OUTPUT IN) : SV_Target
 {
-    float uMetallic = 0.1;
-    float uRoughness = 0.8;
     float3 albedo = AlbedoTexture.Sample(ColorSampler, IN.TextureCoordinate);
-    albedo = pow(albedo, float3(2.2, 2.2, 2.2));
+    float3 mr = MetallicRoughnessTexture.Sample(ColorSampler, IN.TextureCoordinate);
+    float uMetallic = mr.g;
+    float uRoughness = mr.b;
+    //albedo = pow(albedo, float3(2.2, 2.2, 2.2));
 
     float3 N = normalize(IN.Normal);
     float3 V = normalize(CamPos.xyz - IN.WorldPosition.xyz);
@@ -84,10 +84,9 @@ float4 pixel_shader(VS_OUTPUT IN) : SV_Target
     
     float3 color = Lo;
 
-    color = color / (color + float3(1.0, 1.0, 1.0));
+    //color = color / (color + float3(1.0, 1.0, 1.0));
     color = pow(color, float3(0.45, 0.45, 0.45)) + AmbientColor.rgb * AmbientColor.a * albedo;
     float4 OUT = float4(color, 1.0);
-    
     return OUT;
 }
 

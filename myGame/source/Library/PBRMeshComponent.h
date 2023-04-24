@@ -18,7 +18,7 @@ namespace Rendering
 		RTTI_DECLARATIONS(PBRMeshComponent, DrawableGameComponent)
 
 	public:
-		PBRMeshComponent(const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath);
+		PBRMeshComponent(const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring albedoTexFilePath, const std::wstring normalTexFilePath = L"", const std::wstring metallicRoughnessTexFilePath = L"");
 		virtual ~PBRMeshComponent();
 
 		virtual void Initialize() override;
@@ -35,11 +35,15 @@ namespace Rendering
 
 		const std::string mModelFilePath;
 		const std::wstring mShaderFilePath;
-		const std::wstring mTexFilePath;
+		const std::wstring mAlbedoTexFilePath;
+		const std::wstring mNormalTexFilePath;
+		const std::wstring mMetallicRoughnessTexFilePath;
 
 		Effect* mEffect;
 		PBRMaterial* mMaterial;
-		ID3D11ShaderResourceView* mTextureShaderResourceView;
+		ID3D11ShaderResourceView* mAlbedoTextureShaderResourceView;
+		ID3D11ShaderResourceView* mNormalTextureShaderResourceView;
+		ID3D11ShaderResourceView* mMetallicRoughnessTextureShaderResourceView;
 		std::vector<ID3D11Buffer*> mVertexBuffers;
 		std::vector<ID3D11Buffer*> mIndexBuffers;
 		std::vector <UINT> mIndexCounts;

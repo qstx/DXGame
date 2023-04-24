@@ -36,8 +36,7 @@ namespace Rendering
             MATERIAL_VARIABLE_DECLARATION(NumSpotLight)
             MATERIAL_VARIABLE_DECLARATION(AlbedoTexture)
             MATERIAL_VARIABLE_DECLARATION(NormalTexture)
-            MATERIAL_VARIABLE_DECLARATION(MetallicTexture)
-            MATERIAL_VARIABLE_DECLARATION(RoughnessTexture)
+            MATERIAL_VARIABLE_DECLARATION(MetallicRoughnessTexture)
 
     public:
         PBRMaterial();

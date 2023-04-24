@@ -62,6 +62,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ServiceContainer.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SubstanceBoy.h" />
     <ClInclude Include="Technique.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TriangleDemo.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="SamplerStates.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ServiceContainer.cpp" />
+    <ClCompile Include="SubstanceBoy.cpp" />
     <ClCompile Include="Technique.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TriangleDemo.cpp" />

@@ -4,12 +4,6 @@
 #include <string>
 #include <vector>
 
-
-namespace Rendering
-{
-    class DefaultObject;
-}
-using namespace Rendering;
 namespace Library
 {
     class Game;

@@ -20,8 +20,7 @@ namespace Rendering
         MATERIAL_VARIABLE_INITIALIZATION(NumSpotLight),
         MATERIAL_VARIABLE_INITIALIZATION(AlbedoTexture),
         MATERIAL_VARIABLE_INITIALIZATION(NormalTexture),
-        MATERIAL_VARIABLE_INITIALIZATION(MetallicTexture),
-        MATERIAL_VARIABLE_INITIALIZATION(RoughnessTexture)
+        MATERIAL_VARIABLE_INITIALIZATION(MetallicRoughnessTexture)
     {
     }
 
@@ -37,8 +36,7 @@ namespace Rendering
     MATERIAL_VARIABLE_DEFINITION(PBRMaterial, NumSpotLight);
     MATERIAL_VARIABLE_DEFINITION(PBRMaterial, AlbedoTexture);
     MATERIAL_VARIABLE_DEFINITION(PBRMaterial, NormalTexture);
-    MATERIAL_VARIABLE_DEFINITION(PBRMaterial, MetallicTexture);
-    MATERIAL_VARIABLE_DEFINITION(PBRMaterial, RoughnessTexture);
+    MATERIAL_VARIABLE_DEFINITION(PBRMaterial, MetallicRoughnessTexture);
 
     void PBRMaterial::Initialize(Effect* effect)
     {
@@ -56,8 +54,7 @@ namespace Rendering
         MATERIAL_VARIABLE_RETRIEVE(NumSpotLight);
         MATERIAL_VARIABLE_RETRIEVE(AlbedoTexture);
         MATERIAL_VARIABLE_RETRIEVE(NormalTexture);
-        MATERIAL_VARIABLE_RETRIEVE(MetallicTexture);
-        MATERIAL_VARIABLE_RETRIEVE(RoughnessTexture);
+        MATERIAL_VARIABLE_RETRIEVE(MetallicRoughnessTexture);
 
         D3D11_INPUT_ELEMENT_DESC inputElementDescriptions[] =
         {

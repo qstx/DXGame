@@ -6,8 +6,6 @@ using namespace Library;
 
 namespace Library
 {
-	class Camera;
-	class Game;
 	class RenderStateHelper;
 }
 
@@ -23,8 +21,8 @@ namespace Rendering
 		virtual void Draw(const GameTime& gamTime) override;
 
 	protected:
-		DemoGameObject(const DemoGameObject& rhs);
-		DemoGameObject& operator=(const DemoGameObject& rhs);
+		DemoGameObject(const DemoGameObject& rhs) = delete;
+		DemoGameObject& operator=(const DemoGameObject& rhs) = delete;
 	private:
 		RenderStateHelper* mRenderStateHelper;
 	};
