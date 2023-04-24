@@ -9,8 +9,8 @@
 
 namespace Library
 {
-    Model::Model(Game& game, const std::string& filename, bool flipUVs)
-        : mGame(game), mMeshes(), mMaterials()
+    Model::Model(const std::string& filename, bool flipUVs)
+        : mMeshes(), mMaterials()
     {
         Assimp::Importer importer;
 
@@ -57,11 +57,6 @@ namespace Library
         {
             delete material;
         }
-    }
-
-    Game& Model::GetGame()
-    {
-        return mGame;
     }
 
     bool Model::HasMeshes() const

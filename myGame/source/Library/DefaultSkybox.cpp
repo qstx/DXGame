@@ -9,9 +9,9 @@ namespace Rendering
 {
 	RTTI_DEFINITIONS(DefaultSkybox)
 
-	DefaultSkybox::DefaultSkybox(Game& game) :GameObject(game),mRenderStateHelper(new RenderStateHelper(game))
+	DefaultSkybox::DefaultSkybox() :mRenderStateHelper(new RenderStateHelper())
 	{
-		mGameComponents.push_back(new CubeMeshComponent(game, L"Content\\Effects\\DefaultSkybox.cso", L"Content\\Textures\\desertcube1024.dds"));
+		mGameComponents.push_back(new CubeMeshComponent(L"Content\\Effects\\DefaultSkybox.cso", L"Content\\Textures\\desertcube1024.dds"));
 	}
 	DefaultSkybox::~DefaultSkybox()
 	{
@@ -28,8 +28,8 @@ namespace Rendering
 	void DefaultSkybox::Draw(const GameTime& gameTime)
 	{
 		mRenderStateHelper->SaveAll();
-		mGame.Direct3DDeviceContext()->OMSetDepthStencilState(DepthStencilStates::DepthLessEqual_NoWrite, 0);
-		mGame.Direct3DDeviceContext()->RSSetState(RasterizerStates::FrontCulling);
+		Game::GetInstance()->Direct3DDeviceContext()->OMSetDepthStencilState(DepthStencilStates::DepthLessEqual_NoWrite, 0);
+		Game::GetInstance()->Direct3DDeviceContext()->RSSetState(RasterizerStates::FrontCulling);
 		GameObject::Draw(gameTime);
 		mRenderStateHelper->RestoreAll();
 	}

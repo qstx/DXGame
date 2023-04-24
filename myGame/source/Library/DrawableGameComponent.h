@@ -12,21 +12,15 @@ namespace Library
 
     public:
         DrawableGameComponent();
-        DrawableGameComponent(Game& game);
-        DrawableGameComponent(Game& game, Camera& camera);
         virtual ~DrawableGameComponent();
 
         bool Visible() const;
         void SetVisible(bool visible);
 
-        Camera* GetCamera();
-        void SetCamera(Camera* camera);
-
         virtual void Draw(const GameTime& gameTime);
 
     protected:
         bool mVisible;
-        Camera* mCamera;
 
     private:
         DrawableGameComponent(const DrawableGameComponent& rhs);

@@ -19,7 +19,7 @@ namespace Rendering
 		RTTI_DECLARATIONS(CubeMeshComponent, DrawableGameComponent)
 
 	public:
-		CubeMeshComponent(Game& game, const std::wstring shaderFilePath, const std::wstring texFilePath);
+		CubeMeshComponent(const std::wstring shaderFilePath, const std::wstring texFilePath);
 		virtual ~CubeMeshComponent();
 
 		virtual void Initialize() override;

@@ -13,14 +13,14 @@ namespace Library
     const float FirstPersonCamera::DefaultMovementRate = 10.0f;
     const float FirstPersonCamera::DefaultMouseSensitivity = 100.0f;
 
-    FirstPersonCamera::FirstPersonCamera(Game& game)
-        : Camera(game), mKeyboard(nullptr), mMouse(nullptr), 
+    FirstPersonCamera::FirstPersonCamera()
+        : mKeyboard(nullptr), mMouse(nullptr), 
           mMouseSensitivity(DefaultMouseSensitivity), mRotationRate(DefaultRotationRate), mMovementRate(DefaultMovementRate)
     {
     }
 
-    FirstPersonCamera::FirstPersonCamera(Game& game, float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance)
-        : Camera(game, fieldOfView, aspectRatio, nearPlaneDistance, farPlaneDistance), mKeyboard(nullptr), mMouse(nullptr),
+    FirstPersonCamera::FirstPersonCamera(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance)
+        : Camera(fieldOfView, aspectRatio, nearPlaneDistance, farPlaneDistance), mKeyboard(nullptr), mMouse(nullptr),
           mMouseSensitivity(DefaultMouseSensitivity), mRotationRate(DefaultRotationRate), mMovementRate(DefaultMovementRate)
           
     {
@@ -70,8 +70,8 @@ namespace Library
 
     void FirstPersonCamera::Initialize()
     {
-        mKeyboard = (Keyboard*)mGame->Services().GetService(Keyboard::TypeIdClass());
-        mMouse = (Mouse*)mGame->Services().GetService(Mouse::TypeIdClass());
+        mKeyboard = (Keyboard*)Game::GetInstance()->Services().GetService(Keyboard::TypeIdClass());
+        mMouse = (Mouse*)Game::GetInstance()->Services().GetService(Mouse::TypeIdClass());
 
         Camera::Initialize();
     }

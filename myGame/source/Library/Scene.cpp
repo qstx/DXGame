@@ -4,8 +4,8 @@
 #include "GameObject.h"
 namespace Library
 {
-	Scene::Scene(Game& game, Camera& camera):
-		mGame(game),mCamera(camera),
+	Scene::Scene(Camera& camera):
+		mCamera(camera),
 		mAmbientColor(1, 1, 1, 0.5)
 		//mMainDirectionalLight(nullptr)
 	{
@@ -56,10 +56,6 @@ namespace Library
 		}
 	}
 
-	Game& Scene::GetGame()
-	{
-		return mGame;
-	}
 	XMCOLOR& Scene::GetAmbientColor()
 	{
 		return mAmbientColor;

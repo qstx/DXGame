@@ -13,10 +13,11 @@ namespace Library
 	class Game
 	{
 	public:
+		static Game* GetInstance() { return instance; }
 		Game(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand);
 		virtual ~Game();
-		virtual Camera* GetCamera() = 0;
-		virtual Scene* GetScene() = 0;
+		virtual Camera* GetCamera() { return nullptr; }
+		virtual Scene* GetScene() { return nullptr; }
 
 		HINSTANCE Instance() const;
 		HWND WindowHandle() const;
@@ -44,6 +45,8 @@ namespace Library
 		virtual void Draw(const GameTime& gameTime);
 
 	protected:
+		static Game* instance;
+		Game() {};
 		virtual void InitializeWindow();
 		virtual void InitializeDirectX();
 		virtual void Shutdown();
@@ -89,8 +92,8 @@ namespace Library
 		D3D11_VIEWPORT mViewport;
 
 	private:
-		Game(const Game& rhs);
-		Game& operator=(const Game& rhs);
+		Game(const Game& rhs) = delete;
+		Game& operator=(const Game& rhs) = delete;
 
 		POINT CenterWindow(int windowWidth, int windowHeight);
 		static LRESULT WINAPI WndProc(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam);

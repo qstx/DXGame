@@ -18,7 +18,7 @@ namespace Library
         RTTI_DECLARATIONS(FpsComponent, DrawableGameComponent)
 
     public:
-        FpsComponent(Game& game);
+        FpsComponent();
         ~FpsComponent();
 
         XMFLOAT2& TextPosition();
@@ -29,7 +29,6 @@ namespace Library
         virtual void Draw(const GameTime& gameTime) override;
 
     private:
-        FpsComponent();
         FpsComponent(const FpsComponent& rhs);
         FpsComponent& operator=(const FpsComponent& rhs);
         

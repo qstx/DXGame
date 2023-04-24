@@ -36,6 +36,7 @@ namespace Rendering
 		virtual Scene* GetScene() override;
 
 	protected:
+		RenderingGame() {};
 		virtual void Shutdown() override;
 
 	private:

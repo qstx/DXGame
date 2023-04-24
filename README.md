@@ -1,6 +1,6 @@
 # DXGame
 
-一个基于DX11的渲染器，用到了DirectTK库
+一个基于DX11的渲染器，用到了DirectXTK、Assimp、FX11库
 
 整体步骤
 ------
@@ -15,7 +15,15 @@
 
   ![Jinx](./ScreenShots/Skybox.gif)
 
+- PBR(没有Kulla-Conty补偿);
+  
+  ![Jinx](./ScreenShots/PBR_NoKulla-Conty.gif)
+
 TODOs
 ------
 
-- PBR
+- PBR(Kulla-Conty)
+
+- Shadow Map
+
+- PCSS

@@ -16,7 +16,7 @@ namespace Library
 		RTTI_DECLARATIONS(DirectionalLight, Light)
 
 	public:
-		DirectionalLight(Game& game);
+		DirectionalLight();
 		virtual ~DirectionalLight();
 		virtual void Initialize() override;
 		virtual void Update(const GameTime& gameTime) override;

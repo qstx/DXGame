@@ -19,7 +19,7 @@ namespace Rendering
 	RTTI_DEFINITIONS(DefaultObject)
 
 	DefaultObject::DefaultObject(Game& game)
-		: DrawableGameComponent(game, *(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		: mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		mAmbientColor(1, 1, 1, 0.3), mDirectionalLight(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),
@@ -55,28 +55,28 @@ namespace Rendering
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-		std::unique_ptr<Model> model(new Model(*mGame, "Content\\Models\\bench.3ds", false));
+		std::unique_ptr<Model> model(new Model("Content\\Models\\bench.3ds", false));
 
 		// Initialize the material
-		mEffect = new Effect(*mGame);
+		mEffect = new Effect();
 		mEffect->LoadCompiledEffect(L"Content\\Effects\\DefaultLighting.cso");
 		mMaterial = new DefaultMaterial();
 		mMaterial->Initialize(mEffect);
 
 		Mesh* mesh = model->Meshes().at(0);
-		mMaterial->CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffer);
+		mMaterial->CreateVertexBuffer(Game::GetInstance()->Direct3DDevice(), *mesh, &mVertexBuffer);
 		mesh->CreateIndexBuffer(&mIndexBuffer);
 		mIndexCount = mesh->Indices().size();
 
 		std::wstring textureName = L"Content\\Textures\\bench.jpg";
-		HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView);
+		HRESULT hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView);
 		if (FAILED(hr))
 		{
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
 
-		mDirectionalLight = new DirectionalLight(*mGame);
-		mRenderStateHelper = new RenderStateHelper(*mGame);
+		mDirectionalLight = new DirectionalLight();
+		mRenderStateHelper = new RenderStateHelper();
 	}
 
 	void DefaultObject::Update(const GameTime& gameTime)
@@ -87,7 +87,7 @@ namespace Rendering
 
 	void DefaultObject::Draw(const GameTime& gameTime)
 	{
-		ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
+		ID3D11DeviceContext* direct3DDeviceContext = Game::GetInstance()->Direct3DDeviceContext();
 		direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		Pass* pass = mMaterial->CurrentTechnique()->Passes().at(0);
@@ -100,7 +100,7 @@ namespace Rendering
 		direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+		XMMATRIX wvp = worldMatrix * Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&mAmbientColor);
 
 		//mMaterial->WorldViewProjection() << wvp;

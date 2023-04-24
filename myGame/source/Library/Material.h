@@ -29,8 +29,8 @@ namespace Library
         virtual UINT VertexSize() const = 0;
 
     protected:
-        Material(const Material& rhs);
-        Material& operator=(const Material& rhs);
+        Material(const Material& rhs) = delete;
+        Material& operator=(const Material& rhs) = delete;
 
         virtual void CreateInputLayout(const std::string& techniqueName, const std::string& passName, D3D11_INPUT_ELEMENT_DESC* inputElementDescriptions, UINT inputElementDescriptionCount);
 

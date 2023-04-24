@@ -15,8 +15,7 @@ namespace Rendering
 {
     RTTI_DEFINITIONS(ModelFromFile)
 
-        ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename)
-        : DrawableGameComponent(game, camera),
+        ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename):
         mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mTextureShaderResourceView(nullptr), mColorTextureVariable(nullptr),
         mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0), modelFile(modelFilename)
     {
@@ -24,8 +23,7 @@ namespace Rendering
         mModelValue = 0;
     }
 
-    ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue)
-        : DrawableGameComponent(game, camera),
+    ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue):
         mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mTextureShaderResourceView(nullptr), mColorTextureVariable(nullptr),
         mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue)
     {
@@ -74,7 +72,7 @@ namespace Rendering
         }
 
         // Create an effect object from the compiled shader
-        hr = D3DX11CreateEffectFromMemory(compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), 0, mGame->Direct3DDevice(), &mEffect);
+        hr = D3DX11CreateEffectFromMemory(compiledShader->GetBufferPointer(), compiledShader->GetBufferSize(), 0, Game::GetInstance()->Direct3DDevice(), &mEffect);
         if (FAILED(hr))
         {
             throw GameException("D3DX11CreateEffectFromMemory() failed.", hr);
@@ -129,17 +127,17 @@ namespace Rendering
             { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
         };
 
-        if (FAILED(hr = mGame->Direct3DDevice()->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &mInputLayout)))
+        if (FAILED(hr = Game::GetInstance()->Direct3DDevice()->CreateInputLayout(inputElementDescriptions, ARRAYSIZE(inputElementDescriptions), passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &mInputLayout)))
         {
             throw GameException("ID3D11Device::CreateInputLayout() failed.", hr);
         }
 
         // Load the model
-        std::unique_ptr<Model> model(new Model(*mGame, modelFile, true));
+        std::unique_ptr<Model> model(new Model(modelFile, true));
 
         // Create the vertex and index buffers
         Mesh* mesh = model->Meshes().at(0);
-        CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffer);
+        CreateVertexBuffer(Game::GetInstance()->Direct3DDevice(), *mesh, &mVertexBuffer);
         mesh->CreateIndexBuffer(&mIndexBuffer);
         mIndexCount = mesh->Indices().size();
 
@@ -148,7 +146,7 @@ namespace Rendering
         std::wstring textureName = L"Content\\Textures\\bench.jpg";
 
 
-        if (FAILED(hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView)))
+        if (FAILED(hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView)))
         {
             throw GameException("CreateWICTextureFromFile() failed.", hr);
         }
@@ -191,7 +189,7 @@ namespace Rendering
 
     void ModelFromFile::Draw(const GameTime& gameTime)
     {
-        ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
+        ID3D11DeviceContext* direct3DDeviceContext = Game::GetInstance()->Direct3DDeviceContext();
         direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
         direct3DDeviceContext->IASetInputLayout(mInputLayout);
 
@@ -201,7 +199,7 @@ namespace Rendering
         direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-        XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+        XMMATRIX wvp = worldMatrix * Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
 
 

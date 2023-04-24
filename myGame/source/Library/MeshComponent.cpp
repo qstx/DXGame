@@ -20,8 +20,8 @@ namespace Rendering
 {
 	RTTI_DEFINITIONS(MeshComponent)
 
-		MeshComponent::MeshComponent(Game& game, const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath)
-		: DrawableGameComponent(game, *(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		MeshComponent::MeshComponent(const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath)
+		: mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),
 		mRenderStateHelper(nullptr),
 		mModelFilePath(modelFilePath),mShaderFilePath(shaderFilePath),mTexFilePath(texFilePath)
@@ -57,10 +57,10 @@ namespace Rendering
 	void MeshComponent::Initialize()
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
-		std::unique_ptr<Model> model(new Model(*mGame, mModelFilePath, false));
+		std::unique_ptr<Model> model(new Model(mModelFilePath, false));
 
 		// Initialize the material
-		mEffect = new Effect(*mGame);
+		mEffect = new Effect();
 		mEffect->LoadCompiledEffect(mShaderFilePath);
 		mMaterial = new DefaultMaterial();
 		mMaterial->Initialize(mEffect);
@@ -71,18 +71,18 @@ namespace Rendering
 		for (int i = 0; i < model->Meshes().size(); ++i)
 		{
 			Mesh* mesh = model->Meshes().at(i);
-			mMaterial->CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffers[i]);
+			mMaterial->CreateVertexBuffer(Game::GetInstance()->Direct3DDevice(), *mesh, &mVertexBuffers[i]);
 			mesh->CreateIndexBuffer(&mIndexBuffers[i]);
 			mIndexCounts[i] = mesh->Indices().size();
 		}
 		
-		HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
+		HRESULT hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
 		if (FAILED(hr))
 		{
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
 
-		mRenderStateHelper = new RenderStateHelper(*mGame);
+		mRenderStateHelper = new RenderStateHelper();
 	}
 
 	void MeshComponent::Update(const GameTime& gameTime)
@@ -92,7 +92,7 @@ namespace Rendering
 
 	void MeshComponent::Draw(const GameTime& gameTime)
 	{
-		ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
+		ID3D11DeviceContext* direct3DDeviceContext = Game::GetInstance()->Direct3DDeviceContext();
 		direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		Pass* pass = mMaterial->CurrentTechnique()->Passes().at(0);
@@ -102,17 +102,17 @@ namespace Rendering
 		UINT stride = mMaterial->VertexSize();
 		UINT offset = 0;
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX vp = mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
-		XMVECTOR ambientColor = XMLoadColor(&(mGame->GetScene()->GetAmbientColor()));
+		XMMATRIX vp = Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
+		XMVECTOR ambientColor = XMLoadColor(&(Game::GetInstance()->GetScene()->GetAmbientColor()));
 
 		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;
-		mMaterial->CamPos() << mCamera->PositionVector();
+		mMaterial->CamPos() << Game::GetInstance()->GetCamera()->PositionVector();
 		mMaterial->AmbientColor() << ambientColor;
-		mMaterial->NumDirLight() << mGame->GetScene()->mDirectionalLights.size();
-		for (int i = 0; i < mGame->GetScene()->mDirectionalLights.size(); ++i)
+		mMaterial->NumDirLight() << Game::GetInstance()->GetScene()->mDirectionalLights.size();
+		for (int i = 0; i < Game::GetInstance()->GetScene()->mDirectionalLights.size(); ++i)
 		{
-			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(mGame->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
+			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(Game::GetInstance()->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
 		}
 		mMaterial->ColorTexture() << mTextureShaderResourceView;
 
@@ -121,7 +121,6 @@ namespace Rendering
 		{
 			direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffers[i], &stride, &offset);
 			direct3DDeviceContext->IASetIndexBuffer(mIndexBuffers[i], DXGI_FORMAT_R32_UINT, 0);
-			//direct3DDeviceContext->OMSetDepthStencilState(Library::DepthStencilStates::DepthGreaterEqual, 0);
 			direct3DDeviceContext->DrawIndexed(mIndexCounts[i], 0, 0);
 		}
 	}

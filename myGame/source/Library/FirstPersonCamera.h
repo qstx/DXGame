@@ -12,8 +12,8 @@ namespace Library
         RTTI_DECLARATIONS(FirstPersonCamera, Camera)
 
     public:
-        FirstPersonCamera(Game& game);
-        FirstPersonCamera(Game& game, float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance);
+        FirstPersonCamera();
+        FirstPersonCamera(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance);
 
         virtual ~FirstPersonCamera();
 

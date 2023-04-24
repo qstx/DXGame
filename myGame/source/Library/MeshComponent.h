@@ -20,7 +20,7 @@ namespace Rendering
 		RTTI_DECLARATIONS(MeshComponent, DrawableGameComponent)
 
 	public:
-		MeshComponent(Game& game, const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath);
+		MeshComponent(const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath);
 		virtual ~MeshComponent();
 
 		virtual void Initialize() override;

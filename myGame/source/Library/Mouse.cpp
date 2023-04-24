@@ -7,8 +7,8 @@ namespace Library
 {
     RTTI_DEFINITIONS(Mouse)
 
-    Mouse::Mouse(Game& game, LPDIRECTINPUT8 directInput)
-        : GameComponent(game), mDirectInput(directInput), mDevice(nullptr), mX(0), mY(0), mWheel(0)
+    Mouse::Mouse(LPDIRECTINPUT8 directInput)
+        : mDirectInput(directInput), mDevice(nullptr), mX(0), mY(0), mWheel(0)
     {
         assert(mDirectInput != nullptr);		
         ZeroMemory(&mCurrentState, sizeof(mCurrentState));
@@ -62,7 +62,7 @@ namespace Library
             throw GameException("IDIRECTINPUTDEVICE8::SetDataFormat() failed");
         }
 
-        if (FAILED(mDevice->SetCooperativeLevel(mGame->WindowHandle(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE)))
+        if (FAILED(mDevice->SetCooperativeLevel(Game::GetInstance()->WindowHandle(), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE)))
         {
             throw GameException("IDIRECTINPUTDEVICE8::SetCooperativeLevel() failed");
         }

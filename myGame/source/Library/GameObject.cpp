@@ -9,8 +9,7 @@ namespace Library
 {
 	RTTI_DEFINITIONS(GameObject)
 
-	GameObject::GameObject(Game& game):
-		mGame(game)
+	GameObject::GameObject()
 	{
 
 	}
@@ -52,10 +51,5 @@ namespace Library
 		{
 			DeleteObject(comp);
 		}
-	}
-
-	Game& GameObject::GetGame()
-	{
-		return mGame;
 	}
 }
