@@ -8,7 +8,7 @@ namespace Library
     RTTI_DEFINITIONS(Keyboard)
 
     Keyboard::Keyboard(Game& game, LPDIRECTINPUT8 directInput)
-        : GameComponent(game), mDirectInput(directInput), mDevice(nullptr)
+        : GameComponent(), mDirectInput(directInput), mDevice(nullptr)
     {
         assert(mDirectInput != nullptr);		
         ZeroMemory(mCurrentState, sizeof(mCurrentState));
@@ -47,7 +47,7 @@ namespace Library
             throw GameException("IDIRECTINPUTDEVICE8::SetDataFormat() failed");
         }
 
-        if (FAILED(mDevice->SetCooperativeLevel(mGame->WindowHandle(), DISCL_FOREGROUND| DISCL_NONEXCLUSIVE)))
+        if (FAILED(mDevice->SetCooperativeLevel(Game::GetInstance()->WindowHandle(), DISCL_FOREGROUND| DISCL_NONEXCLUSIVE)))
         {
             throw GameException("IDIRECTINPUTDEVICE8::SetCooperativeLevel() failed");
         }

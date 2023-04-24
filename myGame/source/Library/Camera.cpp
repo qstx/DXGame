@@ -11,19 +11,24 @@ namespace Library
     const float Camera::DefaultFieldOfView = XM_PIDIV4;
     const float Camera::DefaultNearPlaneDistance = 0.01f;
     const float Camera::DefaultFarPlaneDistance = 1000.0f;
+    Camera* Camera::main{ nullptr };
 
     Camera::Camera(Game& game)
-        : GameComponent(game),
+        : GameComponent(),
           mFieldOfView(DefaultFieldOfView), mAspectRatio(game.AspectRatio()), mNearPlaneDistance(DefaultNearPlaneDistance), mFarPlaneDistance(DefaultFarPlaneDistance),
           mPosition(), mDirection(), mUp(), mRight(), mViewMatrix(), mProjectionMatrix()
     {
+        if (!main)
+            main = this;
     }
 
     Camera::Camera(Game& game, float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance)
-        : GameComponent(game),
+        : GameComponent(),
           mFieldOfView(fieldOfView), mAspectRatio(aspectRatio), mNearPlaneDistance(nearPlaneDistance), mFarPlaneDistance(farPlaneDistance),
           mPosition(), mDirection(), mUp(), mRight(), mViewMatrix(), mProjectionMatrix()
     {
+        if (!main)
+            main = this;
     }
 
     Camera::~Camera()

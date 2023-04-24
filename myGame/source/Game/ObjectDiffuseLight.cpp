@@ -25,7 +25,7 @@ namespace Rendering
 	const XMFLOAT2 ObjectDiffuseLight::LightRotationRate = XMFLOAT2(XM_2PI, XM_2PI);
 
 	ObjectDiffuseLight::ObjectDiffuseLight(Game& game, Camera& camera)
-		: DrawableGameComponent(game, camera), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		: DrawableGameComponent(camera), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		  mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		  mKeyboard(nullptr), mAmbientColor(1, 1, 1, 0), mDirectionalLight(nullptr),
 		  mWorldMatrix(MatrixHelper::Identity), mProxyModel(nullptr),
@@ -68,10 +68,10 @@ namespace Rendering
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-		std::unique_ptr<Model> model(new Model(*mGame, "Content\\Models\\house.3ds", true));
+		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), "Content\\Models\\house.3ds", true));
 
 		// Initialize the material
-		mEffect = new Effect(*mGame);
+		mEffect = new Effect(*Game::GetInstance());
 		mEffect->LoadCompiledEffect(L"Content\\Effects\\DiffuseLighting.cso");
 		
 
@@ -80,32 +80,32 @@ namespace Rendering
 		mMaterial->Initialize(mEffect);
 
 		Mesh* mesh = model->Meshes().at(0);
-		mMaterial->CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffer);
+		mMaterial->CreateVertexBuffer(Game::GetInstance()->Direct3DDevice(), *mesh, &mVertexBuffer);
 		mesh->CreateIndexBuffer(&mIndexBuffer);
 		mIndexCount = mesh->Indices().size();
 
 		std::wstring textureName = L"Content\\Textures\\house.bmp";
-		HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView);
+		HRESULT hr = DirectX::CreateWICTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), textureName.c_str(), nullptr, &mTextureShaderResourceView);
 		if (FAILED(hr))
 		{
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
 
-		mDirectionalLight = new DirectionalLight(*mGame);
+		mDirectionalLight = new DirectionalLight(*Game::GetInstance());
 		
-		mKeyboard = (Keyboard*)mGame->Services().GetService(Keyboard::TypeIdClass());
+		mKeyboard = (Keyboard*)Game::GetInstance()->Services().GetService(Keyboard::TypeIdClass());
 		assert(mKeyboard != nullptr);
 
 		
-		mProxyModel = new ProxyModel(*mGame, *mCamera, "Content\\Models\\DirectionalLightProxy.obj", 0.5f);
+		mProxyModel = new ProxyModel(*Game::GetInstance(), *mCamera, "Content\\Models\\DirectionalLightProxy.obj", 0.5f);
 		mProxyModel->Initialize();
 		mProxyModel->SetPosition(3.0f, -0.0, 5.0f);
 		mProxyModel->ApplyRotation(XMMatrixRotationY(XM_PIDIV2));
 
-		mRenderStateHelper = new RenderStateHelper(*mGame);
+		mRenderStateHelper = new RenderStateHelper(*Game::GetInstance());
 
-		mSpriteBatch = new SpriteBatch(mGame->Direct3DDeviceContext());
-		mSpriteFont = new SpriteFont(mGame->Direct3DDevice(), L"Content\\Fonts\\Arial_14_Regular.spritefont");
+		mSpriteBatch = new SpriteBatch(Game::GetInstance()->Direct3DDeviceContext());
+		mSpriteFont = new SpriteFont(Game::GetInstance()->Direct3DDevice(), L"Content\\Fonts\\Arial_14_Regular.spritefont");
 	}
 
 	void ObjectDiffuseLight::Update(const GameTime& gameTime)
@@ -118,7 +118,7 @@ namespace Rendering
 
 	void ObjectDiffuseLight::Draw(const GameTime& gameTime)
 	{
-		ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
+		ID3D11DeviceContext* direct3DDeviceContext = Game::GetInstance()->Direct3DDeviceContext();
 		direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		Pass* pass = mMaterial->CurrentTechnique()->Passes().at(0);

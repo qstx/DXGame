@@ -8,9 +8,10 @@ namespace Library
 	const UINT Game::DefaultScreenHeight = 768;
 	const UINT Game::DefaultFrameRate = 60;
 	const UINT Game::DefaultMultiSamplingCount = 4;
+	Game* Game::instance = nullptr;
 
-	Game::Game(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand)
-		: mInstance(instance), mWindowClass(windowClass), mWindowTitle(windowTitle), mShowCommand(showCommand),
+	Game::Game(HINSTANCE instance, const std::wstring& windowClass, const std::wstring& windowTitle, int showCommand):
+		mInstance(instance), mWindowClass(windowClass), mWindowTitle(windowTitle), mShowCommand(showCommand),
 		mWindowHandle(), mWindow(),
 		mScreenWidth(DefaultScreenWidth), mScreenHeight(DefaultScreenHeight),
 		mGameClock(), mGameTime(),
@@ -20,6 +21,8 @@ namespace Library
 		mDepthStencilBuffer(nullptr), mRenderTargetView(nullptr), mDepthStencilView(nullptr), mViewport(),
 		mComponents(), mServices()
 	{
+		if (!this->instance)
+			this->instance = this;
 	}
 
 	Game::~Game()

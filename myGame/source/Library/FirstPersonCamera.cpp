@@ -70,8 +70,8 @@ namespace Library
 
     void FirstPersonCamera::Initialize()
     {
-        mKeyboard = (Keyboard*)mGame->Services().GetService(Keyboard::TypeIdClass());
-        mMouse = (Mouse*)mGame->Services().GetService(Mouse::TypeIdClass());
+        mKeyboard = (Keyboard*)Game::GetInstance()->Services().GetService(Keyboard::TypeIdClass());
+        mMouse = (Mouse*)Game::GetInstance()->Services().GetService(Mouse::TypeIdClass());
 
         Camera::Initialize();
     }

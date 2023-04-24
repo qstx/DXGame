@@ -173,6 +173,7 @@ IF EXIST "$(SolutionDir)..\content" xcopy /E /Y  "$(SolutionDir)..\content" "$(O
       <FileType>Document</FileType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
     </None>
+    <None Include="..\..\content\Effects\include\PBRCommon.fxh" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\..\content\Effects\DefaultLighting.fx">

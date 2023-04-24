@@ -8,6 +8,7 @@
 #include <map>
 #include <memory>
 #include "RTTI.h"
+#include "Singleton.h"
 
 #include <d3d11_1.h>
 #include <d3dx11Effect.h>

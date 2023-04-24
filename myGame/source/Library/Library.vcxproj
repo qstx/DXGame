@@ -59,7 +59,9 @@
     <ClInclude Include="SamplerStates.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ServiceContainer.h" />
+    <ClInclude Include="Singleton.h" />
     <ClInclude Include="Technique.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TriangleDemo.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Variable.h" />
@@ -105,6 +107,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ServiceContainer.cpp" />
     <ClCompile Include="Technique.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TriangleDemo.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="Variable.cpp" />

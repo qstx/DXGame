@@ -24,7 +24,7 @@ namespace Rendering
 	RTTI_DEFINITIONS(CubeMeshComponent)
 
 		CubeMeshComponent::CubeMeshComponent(Game& game, const std::wstring shaderFilePath, const std::wstring texFilePath)
-		: DrawableGameComponent(game, *(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		: DrawableGameComponent(*(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),
 		mRenderStateHelper(nullptr),
 		mShaderFilePath(shaderFilePath), mTexFilePath(texFilePath),
@@ -46,10 +46,10 @@ namespace Rendering
 	void CubeMeshComponent::Initialize()
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
-		std::unique_ptr<Model> model(new Model(*mGame, "Content/Models/bench.3ds", false));
+		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), "Content/Models/bench.3ds", false));
 
 		// Initialize the material
-		mEffect = new Effect(*mGame);
+		mEffect = new Effect(*Game::GetInstance());
 		mEffect->LoadCompiledEffect(mShaderFilePath);
 		mMaterial = new DefaultMaterial();
 		mMaterial->Initialize(mEffect);
@@ -95,7 +95,7 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 		D3D11_SUBRESOURCE_DATA vertexSubResourceData;
 		ZeroMemory(&vertexSubResourceData, sizeof(vertexSubResourceData));
 		vertexSubResourceData.pSysMem = vertices;
-		if (FAILED(mGame->Direct3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexSubResourceData, &mVertexBuffer)))
+		if (FAILED(Game::GetInstance()->Direct3DDevice()->CreateBuffer(&vertexBufferDesc, &vertexSubResourceData, &mVertexBuffer)))
 		{
 			throw GameException("ID3D11Device::CreateBuffer() failed.");
 		}
@@ -125,18 +125,18 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 		D3D11_SUBRESOURCE_DATA indexSubResourceData;
 		ZeroMemory(&indexSubResourceData, sizeof(indexSubResourceData));
 		indexSubResourceData.pSysMem = indices;
-		if (FAILED(mGame->Direct3DDevice()->CreateBuffer(&indexBufferDesc, &indexSubResourceData, &mIndexBuffer)))
+		if (FAILED(Game::GetInstance()->Direct3DDevice()->CreateBuffer(&indexBufferDesc, &indexSubResourceData, &mIndexBuffer)))
 		{
 			throw GameException("ID3D11Device::CreateBuffer() failed.");
 		}
 		mIndexCount = 36;
 		//HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
-		HRESULT hr = DirectX::CreateDDSTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
+		HRESULT hr = DirectX::CreateDDSTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
 		if (FAILED(hr))
 		{
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
-		mRenderStateHelper = new RenderStateHelper(*mGame);
+		mRenderStateHelper = new RenderStateHelper(*Game::GetInstance());
 	}
 
 	void CubeMeshComponent::Update(const GameTime& gameTime)
@@ -146,7 +146,7 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 
 	void CubeMeshComponent::Draw(const GameTime& gameTime)
 	{
-		ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();
+		ID3D11DeviceContext* direct3DDeviceContext = Game::GetInstance()->Direct3DDeviceContext();
 		direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		Pass* pass = mMaterial->CurrentTechnique()->Passes().at(0);
@@ -156,16 +156,16 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 		UINT offset = 0;
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
 		XMMATRIX vp = mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
-		XMVECTOR ambientColor = XMLoadColor(&(mGame->GetScene()->GetAmbientColor()));
+		XMVECTOR ambientColor = XMLoadColor(&(Game::GetInstance()->GetScene()->GetAmbientColor()));
 
 		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;
 		mMaterial->CamPos() << mCamera->PositionVector();
 		mMaterial->AmbientColor() << ambientColor;
-		mMaterial->NumDirLight() << mGame->GetScene()->mDirectionalLights.size();
-		for (int i = 0; i < mGame->GetScene()->mDirectionalLights.size(); ++i)
+		mMaterial->NumDirLight() << Game::GetInstance()->GetScene()->mDirectionalLights.size();
+		for (int i = 0; i < Game::GetInstance()->GetScene()->mDirectionalLights.size(); ++i)
 		{
-			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(mGame->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
+			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(Game::GetInstance()->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
 		}
 		mMaterial->ColorTexture() << mTextureShaderResourceView;
 

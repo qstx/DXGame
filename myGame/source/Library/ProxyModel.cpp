@@ -15,7 +15,7 @@ namespace Library
 	RTTI_DEFINITIONS(ProxyModel)
 
 	ProxyModel::ProxyModel(Game& game, Camera& camera, const std::string& modelFileName, float scale)
-		: DrawableGameComponent(game, camera),
+		: DrawableGameComponent(camera),
 		  mModelFileName(modelFileName), mEffect(nullptr), mMaterial(nullptr),
 		  mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		  mWorldMatrix(MatrixHelper::Identity), mScaleMatrix(MatrixHelper::Identity), mDisplayWireframe(false),
@@ -122,9 +122,9 @@ namespace Library
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-		std::unique_ptr<Model> model(new Model(*mGame, mModelFileName, true));
+		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), mModelFileName, true));
 
-		mEffect = new Effect(*mGame);
+		mEffect = new Effect(*Game::GetInstance());
 		//mEffect->LoadCompiledEffect(L"Content\\Effects\\BasicEffect.cso");
 		mEffect->CompileFromFile(L"Content\\Effects\\BasicEffect.fx");
 
@@ -134,7 +134,7 @@ namespace Library
 		mMaterial->Initialize(mEffect);
 
 		Mesh* mesh = model->Meshes().at(0);
-		mMaterial->CreateVertexBuffer(mGame->Direct3DDevice(), *mesh, &mVertexBuffer);
+		mMaterial->CreateVertexBuffer(Game::GetInstance()->Direct3DDevice(), *mesh, &mVertexBuffer);
 		mesh->CreateIndexBuffer(&mIndexBuffer);
 		mIndexCount = mesh->Indices().size();
 	}
@@ -152,7 +152,7 @@ namespace Library
 
 	void ProxyModel::Draw(const GameTime& gametime)
 	{
-		ID3D11DeviceContext* direct3DDeviceContext = mGame->Direct3DDeviceContext();			
+		ID3D11DeviceContext* direct3DDeviceContext = Game::GetInstance()->Direct3DDeviceContext();			
 		direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 		Pass* pass = mMaterial->CurrentTechnique()->Passes().at(0);		
@@ -172,9 +172,9 @@ namespace Library
 	
 		if (mDisplayWireframe)
 		{
-			mGame->Direct3DDeviceContext()->RSSetState(RasterizerStates::Wireframe);
+			Game::GetInstance()->Direct3DDeviceContext()->RSSetState(RasterizerStates::Wireframe);
 			direct3DDeviceContext->DrawIndexed(mIndexCount, 0, 0);
-			mGame->Direct3DDeviceContext()->RSSetState(nullptr);
+			Game::GetInstance()->Direct3DDeviceContext()->RSSetState(nullptr);
 		}
 		else
 		{

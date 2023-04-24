@@ -13,11 +13,8 @@ namespace Library
 
     public:
         GameComponent();
-        GameComponent(Game& game);
         virtual ~GameComponent();
 
-        Game* GetGame();
-        void SetGame(Game& game);
         bool Enabled() const;
         void SetEnabled(bool enabled);
 
@@ -25,7 +22,6 @@ namespace Library
         virtual void Update(const GameTime& gameTime);
 
     protected:
-        Game* mGame;
         bool mEnabled;
 
     private:

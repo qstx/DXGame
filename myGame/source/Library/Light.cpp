@@ -6,7 +6,7 @@ namespace Library
 	RTTI_DEFINITIONS(Light)
 
 	Light::Light(Game& game)
-		: GameComponent(game), mColor(1.0f,1.0f,1.0f,1.0f)
+		: GameComponent(), mColor(1.0f,1.0f,1.0f,1.0f)
 	{
 	}
 

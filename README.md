@@ -1,6 +1,6 @@
 # DXGame
 
-一个基于DX11的渲染器，用到了DirectTK库
+一个基于DX11的渲染器，用到了DirectXTK、Assimp、FX11库
 
 整体步骤
 ------
@@ -19,3 +19,7 @@ TODOs
 ------
 
 - PBR
+
+- Shadow Map
+
+- PCSS

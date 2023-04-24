@@ -10,8 +10,8 @@ namespace Library
 {
     RTTI_DEFINITIONS(FpsComponent)
 
-    FpsComponent::FpsComponent(Game& game)
-        : DrawableGameComponent(game), mSpriteBatch(nullptr), mSpriteFont(nullptr), mTextPosition(0.0f, 20.0f),
+    FpsComponent::FpsComponent()
+        : DrawableGameComponent(), mSpriteBatch(nullptr), mSpriteFont(nullptr), mTextPosition(0.0f, 20.0f),
           mFrameCount(0), mFrameRate(0), mLastTotalElapsedTime(0.0)
     {
     }
@@ -36,8 +36,8 @@ namespace Library
     {       
         SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-        mSpriteBatch = new SpriteBatch(mGame->Direct3DDeviceContext());
-        mSpriteFont = new SpriteFont(mGame->Direct3DDevice(), L"Content\\Fonts\\Arial_14_Regular.spritefont");
+        mSpriteBatch = new SpriteBatch(Game::GetInstance()->Direct3DDeviceContext());
+        mSpriteFont = new SpriteFont(Game::GetInstance()->Direct3DDevice(), L"Content\\Fonts\\Arial_14_Regular.spritefont");
     }
 
     void FpsComponent::Update(const GameTime& gameTime)

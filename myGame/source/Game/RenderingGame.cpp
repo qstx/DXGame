@@ -50,7 +50,7 @@ namespace Rendering
         mComponents.push_back(mMouse);
         mServices.AddService(Mouse::TypeIdClass(), mMouse);
 
-        mFpsComponent = new FpsComponent(*this);
+        mFpsComponent = new FpsComponent();
         mFpsComponent->Initialize();
         mRenderStateHelper = new RenderStateHelper(*this);
         RasterizerStates::Initialize(mDirect3DDevice);
@@ -58,7 +58,7 @@ namespace Rendering
         DepthStencilStates::Initialize(mDirect3DDevice);
 
         Game::Initialize();
-		mCamera->SetPosition(0.0f, 0.0f, 0.2f);
+		mCamera->SetPosition(0.0f, 1.0f, 5.0f);
 
         mScene = new DemoScene(*this, *mCamera);
         mScene->Initialize();

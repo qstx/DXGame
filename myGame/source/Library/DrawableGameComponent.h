@@ -12,8 +12,7 @@ namespace Library
 
     public:
         DrawableGameComponent();
-        DrawableGameComponent(Game& game);
-        DrawableGameComponent(Game& game, Camera& camera);
+        DrawableGameComponent(Camera& camera);
         virtual ~DrawableGameComponent();
 
         bool Visible() const;

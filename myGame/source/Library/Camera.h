@@ -11,6 +11,7 @@ namespace Library
         RTTI_DECLARATIONS(Camera, GameComponent)
 
     public:
+        static Camera *main;
         Camera(Game& game);
         Camera(Game& game, float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance);
 
@@ -67,8 +68,8 @@ namespace Library
         XMFLOAT4X4 mProjectionMatrix;
 
     private:
-        Camera(const Camera& rhs);
-        Camera& operator=(const Camera& rhs);
+        Camera(const Camera& rhs) = delete;
+        Camera& operator=(const Camera& rhs) = delete;
     };
 }
 
