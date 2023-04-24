@@ -19,7 +19,7 @@ namespace Rendering
 	RTTI_DEFINITIONS(DefaultObject)
 
 	DefaultObject::DefaultObject(Game& game)
-		: DrawableGameComponent(*(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		: mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		mAmbientColor(1, 1, 1, 0.3), mDirectionalLight(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),
@@ -55,10 +55,10 @@ namespace Rendering
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), "Content\\Models\\bench.3ds", false));
+		std::unique_ptr<Model> model(new Model("Content\\Models\\bench.3ds", false));
 
 		// Initialize the material
-		mEffect = new Effect(*Game::GetInstance());
+		mEffect = new Effect();
 		mEffect->LoadCompiledEffect(L"Content\\Effects\\DefaultLighting.cso");
 		mMaterial = new DefaultMaterial();
 		mMaterial->Initialize(mEffect);
@@ -75,8 +75,8 @@ namespace Rendering
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
 
-		mDirectionalLight = new DirectionalLight(*Game::GetInstance());
-		mRenderStateHelper = new RenderStateHelper(*Game::GetInstance());
+		mDirectionalLight = new DirectionalLight();
+		mRenderStateHelper = new RenderStateHelper();
 	}
 
 	void DefaultObject::Update(const GameTime& gameTime)
@@ -100,7 +100,7 @@ namespace Rendering
 		direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+		XMMATRIX wvp = worldMatrix * Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&mAmbientColor);
 
 		//mMaterial->WorldViewProjection() << wvp;

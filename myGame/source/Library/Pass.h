@@ -10,7 +10,7 @@ namespace Library
     class Pass
     {
     public:
-        Pass(Game& game, Technique& technique, ID3DX11EffectPass* pass);
+        Pass(Technique& technique, ID3DX11EffectPass* pass);
 
         Technique& GetTechnique();
         ID3DX11EffectPass* GetPass() const;
@@ -24,7 +24,6 @@ namespace Library
         Pass(const Pass& rhs);
         Pass& operator=(const Pass& rhs);
 
-        Game& mGame;
         Technique& mTechnique;
         ID3DX11EffectPass* mPass;
         D3DX11_PASS_DESC mPassDesc;

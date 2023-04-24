@@ -12,8 +12,7 @@ namespace Rendering
     RTTI_DEFINITIONS(TriangleDemo)
 
     TriangleDemo::TriangleDemo(Game& game, Camera& camera)
-        : DrawableGameComponent(camera),
-          mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr),
+        : mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr),
           mTextureShaderResourceView(nullptr), mColorTextureVariable(nullptr),
           mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mAngle(0.0f)
     {
@@ -183,7 +182,7 @@ TextureMappingVertex(XMFLOAT4(-5.0f, 0.0f, -5.0f, 1.0f), XMFLOAT2(0.0f, 0.0f)),
         direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer,DXGI_FORMAT_R32_UINT,0);
         mColorTextureVariable->SetResource(mTextureShaderResourceView);
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-        XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+        XMMATRIX wvp = worldMatrix * Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
         mPass->Apply(0, direct3DDeviceContext);
         //direct3DDeviceContext->Draw(3, 0);

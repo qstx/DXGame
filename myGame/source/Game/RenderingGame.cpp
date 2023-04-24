@@ -34,7 +34,7 @@ namespace Rendering
 
     void RenderingGame::Initialize()
     {
-        mCamera = new FirstPersonCamera(*this);
+        mCamera = new FirstPersonCamera();
         mComponents.push_back(mCamera);
         mServices.AddService(Camera::TypeIdClass(), mCamera);
 
@@ -42,17 +42,17 @@ namespace Rendering
         {
             throw GameException("DirectInput8Create() failed");
         }
-        mKeyboard = new Keyboard(*this, mDirectInput);
+        mKeyboard = new Keyboard(mDirectInput);
         mComponents.push_back(mKeyboard);
         mServices.AddService(Keyboard::TypeIdClass(), mKeyboard);
 
-        mMouse = new Mouse(*this, mDirectInput);
+        mMouse = new Mouse(mDirectInput);
         mComponents.push_back(mMouse);
         mServices.AddService(Mouse::TypeIdClass(), mMouse);
 
         mFpsComponent = new FpsComponent();
         mFpsComponent->Initialize();
-        mRenderStateHelper = new RenderStateHelper(*this);
+        mRenderStateHelper = new RenderStateHelper();
         RasterizerStates::Initialize(mDirect3DDevice);
         SamplerStates::Initialize(mDirect3DDevice);
         DepthStencilStates::Initialize(mDirect3DDevice);
@@ -60,7 +60,7 @@ namespace Rendering
         Game::Initialize();
 		mCamera->SetPosition(0.0f, 1.0f, 5.0f);
 
-        mScene = new DemoScene(*this, *mCamera);
+        mScene = new DemoScene(*mCamera);
         mScene->Initialize();
     }
 

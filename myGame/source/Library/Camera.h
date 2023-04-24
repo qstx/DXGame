@@ -12,8 +12,8 @@ namespace Library
 
     public:
         static Camera *main;
-        Camera(Game& game);
-        Camera(Game& game, float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance);
+        Camera();
+        Camera(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance);
 
         virtual ~Camera();
 

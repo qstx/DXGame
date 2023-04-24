@@ -15,8 +15,7 @@ namespace Rendering
 {
     RTTI_DEFINITIONS(ModelFromFile)
 
-        ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename)
-        : DrawableGameComponent(camera),
+        ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename):
         mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mTextureShaderResourceView(nullptr), mColorTextureVariable(nullptr),
         mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0), modelFile(modelFilename)
     {
@@ -24,8 +23,7 @@ namespace Rendering
         mModelValue = 0;
     }
 
-    ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue)
-        : DrawableGameComponent(camera),
+    ModelFromFile::ModelFromFile(Game& game, Camera& camera, const std::string modelFilename, const std::wstring ModelDes, int ModelValue):
         mEffect(nullptr), mTechnique(nullptr), mPass(nullptr), mWvpVariable(nullptr), mTextureShaderResourceView(nullptr), mColorTextureVariable(nullptr),
         mInputLayout(nullptr), mWorldMatrix(MatrixHelper::Identity), mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0), modelFile(modelFilename), modelDes(ModelDes), mModelValue(ModelValue)
     {
@@ -135,7 +133,7 @@ namespace Rendering
         }
 
         // Load the model
-        std::unique_ptr<Model> model(new Model(*Game::GetInstance(), modelFile, true));
+        std::unique_ptr<Model> model(new Model(modelFile, true));
 
         // Create the vertex and index buffers
         Mesh* mesh = model->Meshes().at(0);
@@ -201,7 +199,7 @@ namespace Rendering
         direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
         XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-        XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+        XMMATRIX wvp = worldMatrix * Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
         mWvpVariable->SetMatrix(reinterpret_cast<const float*>(&wvp));
 
 

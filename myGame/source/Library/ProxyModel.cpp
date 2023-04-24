@@ -15,8 +15,7 @@ namespace Library
 	RTTI_DEFINITIONS(ProxyModel)
 
 	ProxyModel::ProxyModel(Game& game, Camera& camera, const std::string& modelFileName, float scale)
-		: DrawableGameComponent(camera),
-		  mModelFileName(modelFileName), mEffect(nullptr), mMaterial(nullptr),
+		: mModelFileName(modelFileName), mEffect(nullptr), mMaterial(nullptr),
 		  mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		  mWorldMatrix(MatrixHelper::Identity), mScaleMatrix(MatrixHelper::Identity), mDisplayWireframe(false),
 		  mPosition(Vector3Helper::Zero), mDirection(Vector3Helper::Forward), mUp(Vector3Helper::Up), mRight(Vector3Helper::Right)
@@ -122,9 +121,9 @@ namespace Library
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), mModelFileName, true));
+		std::unique_ptr<Model> model(new Model(mModelFileName, true));
 
-		mEffect = new Effect(*Game::GetInstance());
+		mEffect = new Effect();
 		//mEffect->LoadCompiledEffect(L"Content\\Effects\\BasicEffect.cso");
 		mEffect->CompileFromFile(L"Content\\Effects\\BasicEffect.fx");
 
@@ -164,7 +163,7 @@ namespace Library
 		direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffer, &stride, &offset);
 		direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-		XMMATRIX wvp = XMLoadFloat4x4(&mWorldMatrix) * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();		
+		XMMATRIX wvp = XMLoadFloat4x4(&mWorldMatrix) * Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
 		mMaterial->WorldViewProjection() << wvp;
 		
 		pass->Apply(0, direct3DDeviceContext);

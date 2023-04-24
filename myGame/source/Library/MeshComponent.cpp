@@ -20,8 +20,8 @@ namespace Rendering
 {
 	RTTI_DEFINITIONS(MeshComponent)
 
-		MeshComponent::MeshComponent(Game& game, const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath)
-		: DrawableGameComponent(*(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		MeshComponent::MeshComponent(const std::string modelFilePath, const std::wstring shaderFilePath, const std::wstring texFilePath)
+		: mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),
 		mRenderStateHelper(nullptr),
 		mModelFilePath(modelFilePath),mShaderFilePath(shaderFilePath),mTexFilePath(texFilePath)
@@ -57,10 +57,10 @@ namespace Rendering
 	void MeshComponent::Initialize()
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
-		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), mModelFilePath, false));
+		std::unique_ptr<Model> model(new Model(mModelFilePath, false));
 
 		// Initialize the material
-		mEffect = new Effect(*Game::GetInstance());
+		mEffect = new Effect();
 		mEffect->LoadCompiledEffect(mShaderFilePath);
 		mMaterial = new DefaultMaterial();
 		mMaterial->Initialize(mEffect);
@@ -82,7 +82,7 @@ namespace Rendering
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
 
-		mRenderStateHelper = new RenderStateHelper(*Game::GetInstance());
+		mRenderStateHelper = new RenderStateHelper();
 	}
 
 	void MeshComponent::Update(const GameTime& gameTime)
@@ -102,12 +102,12 @@ namespace Rendering
 		UINT stride = mMaterial->VertexSize();
 		UINT offset = 0;
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX vp = mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+		XMMATRIX vp = Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&(Game::GetInstance()->GetScene()->GetAmbientColor()));
 
 		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;
-		mMaterial->CamPos() << mCamera->PositionVector();
+		mMaterial->CamPos() << Game::GetInstance()->GetCamera()->PositionVector();
 		mMaterial->AmbientColor() << ambientColor;
 		mMaterial->NumDirLight() << Game::GetInstance()->GetScene()->mDirectionalLights.size();
 		for (int i = 0; i < Game::GetInstance()->GetScene()->mDirectionalLights.size(); ++i)
@@ -121,7 +121,6 @@ namespace Rendering
 		{
 			direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffers[i], &stride, &offset);
 			direct3DDeviceContext->IASetIndexBuffer(mIndexBuffers[i], DXGI_FORMAT_R32_UINT, 0);
-			//direct3DDeviceContext->OMSetDepthStencilState(Library::DepthStencilStates::DepthGreaterEqual, 0);
 			direct3DDeviceContext->DrawIndexed(mIndexCounts[i], 0, 0);
 		}
 	}

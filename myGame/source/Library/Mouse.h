@@ -19,7 +19,7 @@ namespace Library
         RTTI_DECLARATIONS(Mouse, GameComponent)
 
     public:
-        Mouse(Game& game, LPDIRECTINPUT8 directInput);
+        Mouse(LPDIRECTINPUT8 directInput);
         ~Mouse();
 
         LPDIMOUSESTATE CurrentState();

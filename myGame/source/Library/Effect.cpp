@@ -6,8 +6,8 @@
 
 namespace Library
 {
-    Effect::Effect(Game& game)
-        : mGame(game), mEffect(nullptr), mEffectDesc(), mTechniques(), mTechniquesByName(), mVariables(), mVariablesByName()
+    Effect::Effect()
+        : mEffect(nullptr), mEffectDesc(), mTechniques(), mTechniquesByName(), mVariables(), mVariablesByName()
     {
     }
 
@@ -69,12 +69,6 @@ namespace Library
             throw GameException("D3DX11CreateEffectFromMemory() failed.", hr);
         }
     }
-
-    Game& Effect::GetGame()
-    {
-        return mGame;
-    }
-
     ID3DX11Effect* Effect::GetEffect() const
     {
         return mEffect;
@@ -128,13 +122,13 @@ namespace Library
 
     void Effect::CompileFromFile(const std::wstring& filename)
     {
-        CompileEffectFromFile(mGame.Direct3DDevice(), &mEffect, filename);
+        CompileEffectFromFile(Game::GetInstance()->Direct3DDevice(), &mEffect, filename);
         Initialize();
     }
 
     void Effect::LoadCompiledEffect(const std::wstring& filename)
     {
-        LoadCompiledEffect(mGame.Direct3DDevice(), &mEffect, filename);
+        LoadCompiledEffect(Game::GetInstance()->Direct3DDevice(), &mEffect, filename);
         Initialize();
     }
 
@@ -148,7 +142,7 @@ namespace Library
         
         for (UINT i = 0; i < mEffectDesc.Techniques; i++)
         {
-            Technique* technique = new Technique(mGame, *this, mEffect->GetTechniqueByIndex(i));
+            Technique* technique = new Technique(*this,mEffect->GetTechniqueByIndex(i));
             mTechniques.push_back(technique);
             mTechniquesByName.insert(std::pair<std::string, Technique*>(technique->Name(), technique));
         }

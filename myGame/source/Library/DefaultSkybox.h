@@ -20,7 +20,7 @@ namespace Rendering
 		RTTI_DECLARATIONS(DefaultSkybox, GameObject)
 
 	public:
-		DefaultSkybox(Game& game);
+		DefaultSkybox();
 		virtual ~DefaultSkybox();
 		virtual void Initialize() override;
 		virtual void Update(const GameTime& gameTime) override;

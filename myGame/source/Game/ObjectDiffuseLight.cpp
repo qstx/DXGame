@@ -24,8 +24,8 @@ namespace Rendering
 	const float ObjectDiffuseLight::LightModulationRate = UCHAR_MAX;
 	const XMFLOAT2 ObjectDiffuseLight::LightRotationRate = XMFLOAT2(XM_2PI, XM_2PI);
 
-	ObjectDiffuseLight::ObjectDiffuseLight(Game& game, Camera& camera)
-		: DrawableGameComponent(camera), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+	ObjectDiffuseLight::ObjectDiffuseLight(Game& game, Camera& camera):
+		mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		  mVertexBuffer(nullptr), mIndexBuffer(nullptr), mIndexCount(0),
 		  mKeyboard(nullptr), mAmbientColor(1, 1, 1, 0), mDirectionalLight(nullptr),
 		  mWorldMatrix(MatrixHelper::Identity), mProxyModel(nullptr),
@@ -68,10 +68,10 @@ namespace Rendering
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
 
-		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), "Content\\Models\\house.3ds", true));
+		std::unique_ptr<Model> model(new Model("Content\\Models\\house.3ds", true));
 
 		// Initialize the material
-		mEffect = new Effect(*Game::GetInstance());
+		mEffect = new Effect();
 		mEffect->LoadCompiledEffect(L"Content\\Effects\\DiffuseLighting.cso");
 		
 
@@ -91,18 +91,18 @@ namespace Rendering
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
 
-		mDirectionalLight = new DirectionalLight(*Game::GetInstance());
+		mDirectionalLight = new DirectionalLight();
 		
 		mKeyboard = (Keyboard*)Game::GetInstance()->Services().GetService(Keyboard::TypeIdClass());
 		assert(mKeyboard != nullptr);
 
 		
-		mProxyModel = new ProxyModel(*Game::GetInstance(), *mCamera, "Content\\Models\\DirectionalLightProxy.obj", 0.5f);
+		mProxyModel = new ProxyModel(*Game::GetInstance(), *Game::GetInstance()->GetCamera(), "Content\\Models\\DirectionalLightProxy.obj", 0.5f);
 		mProxyModel->Initialize();
 		mProxyModel->SetPosition(3.0f, -0.0, 5.0f);
 		mProxyModel->ApplyRotation(XMMatrixRotationY(XM_PIDIV2));
 
-		mRenderStateHelper = new RenderStateHelper(*Game::GetInstance());
+		mRenderStateHelper = new RenderStateHelper();
 
 		mSpriteBatch = new SpriteBatch(Game::GetInstance()->Direct3DDeviceContext());
 		mSpriteFont = new SpriteFont(Game::GetInstance()->Direct3DDevice(), L"Content\\Fonts\\Arial_14_Regular.spritefont");
@@ -131,7 +131,7 @@ namespace Rendering
 		direct3DDeviceContext->IASetIndexBuffer(mIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX wvp = worldMatrix * mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+		XMMATRIX wvp = worldMatrix * Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&mAmbientColor);			
 
 		mMaterial->WorldViewProjection() << wvp;

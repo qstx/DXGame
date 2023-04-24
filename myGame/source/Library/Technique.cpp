@@ -3,7 +3,7 @@
 
 namespace Library
 {
-    Technique::Technique(Game& game, Effect& effect, ID3DX11EffectTechnique* technique)
+    Technique::Technique(Effect& effect, ID3DX11EffectTechnique* technique)
         : mEffect(effect), mTechnique(technique), mTechniqueDesc(), mName(), mPasses(), mPassesByName()
     {
         mTechnique->GetDesc(&mTechniqueDesc);
@@ -11,7 +11,7 @@ namespace Library
 
         for (UINT i = 0; i < mTechniqueDesc.Passes; i++)
         {
-            Pass* pass = new Pass(game, *this, mTechnique->GetPassByIndex(i));
+            Pass* pass = new Pass(*this, mTechnique->GetPassByIndex(i));
             mPasses.push_back(pass);
             mPassesByName.insert(std::pair<std::string, Pass*>(pass->Name(), pass));
         }

@@ -7,8 +7,8 @@ namespace Library
 {
     RTTI_DEFINITIONS(Mouse)
 
-    Mouse::Mouse(Game& game, LPDIRECTINPUT8 directInput)
-        : GameComponent(), mDirectInput(directInput), mDevice(nullptr), mX(0), mY(0), mWheel(0)
+    Mouse::Mouse(LPDIRECTINPUT8 directInput)
+        : mDirectInput(directInput), mDevice(nullptr), mX(0), mY(0), mWheel(0)
     {
         assert(mDirectInput != nullptr);		
         ZeroMemory(&mCurrentState, sizeof(mCurrentState));

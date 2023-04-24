@@ -6,7 +6,7 @@ namespace Library
 	class DemoScene :public Scene
 	{
 	public:
-		DemoScene(Game& game, Camera& camera);
+		DemoScene(Camera& camera);
 		~DemoScene();
 
 		virtual void Initialize() override;

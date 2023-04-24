@@ -21,7 +21,7 @@ namespace Library
         RTTI_DECLARATIONS(GameObject,RTTI)
 
     public:
-        GameObject(Game& game);
+        GameObject();
         virtual ~GameObject();
 
 		virtual void Initialize();
@@ -29,13 +29,10 @@ namespace Library
 		virtual void Draw(const GameTime& gameTime);
 		virtual void Destory();
 
-        Game& GetGame();
-
     protected:
         GameObject(const GameObject& rhs);
         GameObject& operator=(const GameObject& rhs);
 
-        Game& mGame;
         std::vector<GameComponent*> mGameComponents;
     };
 }

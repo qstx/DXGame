@@ -23,8 +23,8 @@ namespace Rendering
 {
 	RTTI_DEFINITIONS(CubeMeshComponent)
 
-		CubeMeshComponent::CubeMeshComponent(Game& game, const std::wstring shaderFilePath, const std::wstring texFilePath)
-		: DrawableGameComponent(*(game.GetCamera())), mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
+		CubeMeshComponent::CubeMeshComponent(const std::wstring shaderFilePath, const std::wstring texFilePath)
+		: mEffect(nullptr), mMaterial(nullptr), mTextureShaderResourceView(nullptr),
 		mWorldMatrix(MatrixHelper::Identity),
 		mRenderStateHelper(nullptr),
 		mShaderFilePath(shaderFilePath), mTexFilePath(texFilePath),
@@ -46,10 +46,10 @@ namespace Rendering
 	void CubeMeshComponent::Initialize()
 	{
 		SetCurrentDirectory(Utility::ExecutableDirectory().c_str());
-		std::unique_ptr<Model> model(new Model(*Game::GetInstance(), "Content/Models/bench.3ds", false));
+		std::unique_ptr<Model> model(new Model("Content/Models/bench.3ds", false));
 
 		// Initialize the material
-		mEffect = new Effect(*Game::GetInstance());
+		mEffect = new Effect();
 		mEffect->LoadCompiledEffect(mShaderFilePath);
 		mMaterial = new DefaultMaterial();
 		mMaterial->Initialize(mEffect);
@@ -130,13 +130,12 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 			throw GameException("ID3D11Device::CreateBuffer() failed.");
 		}
 		mIndexCount = 36;
-		//HRESULT hr = DirectX::CreateWICTextureFromFile(mGame->Direct3DDevice(), mGame->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
 		HRESULT hr = DirectX::CreateDDSTextureFromFile(Game::GetInstance()->Direct3DDevice(), Game::GetInstance()->Direct3DDeviceContext(), mTexFilePath.c_str(), nullptr, &mTextureShaderResourceView);
 		if (FAILED(hr))
 		{
 			throw GameException("CreateWICTextureFromFile() failed.", hr);
 		}
-		mRenderStateHelper = new RenderStateHelper(*Game::GetInstance());
+		mRenderStateHelper = new RenderStateHelper();
 	}
 
 	void CubeMeshComponent::Update(const GameTime& gameTime)
@@ -155,12 +154,12 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 		UINT stride = mMaterial->VertexSize();
 		UINT offset = 0;
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
-		XMMATRIX vp = mCamera->ViewMatrix() * mCamera->ProjectionMatrix();
+		XMMATRIX vp = Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
 		XMVECTOR ambientColor = XMLoadColor(&(Game::GetInstance()->GetScene()->GetAmbientColor()));
 
 		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;
-		mMaterial->CamPos() << mCamera->PositionVector();
+		mMaterial->CamPos() << Game::GetInstance()->GetCamera()->PositionVector();
 		mMaterial->AmbientColor() << ambientColor;
 		mMaterial->NumDirLight() << Game::GetInstance()->GetScene()->mDirectionalLights.size();
 		for (int i = 0; i < Game::GetInstance()->GetScene()->mDirectionalLights.size(); ++i)

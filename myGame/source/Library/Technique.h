@@ -11,7 +11,7 @@ namespace Library
     class Technique
     {
     public:
-        Technique(Game& game, Effect& effect, ID3DX11EffectTechnique* technique);
+        Technique(Effect& effect, ID3DX11EffectTechnique* technique);
         ~Technique();
 
         Effect& GetEffect();

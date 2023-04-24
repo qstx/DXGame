@@ -11,13 +11,12 @@ namespace Library
     class Effect
     {
     public:
-        Effect(Game& game);
+        Effect();
         virtual ~Effect();
 
         static void CompileEffectFromFile(ID3D11Device* direct3DDevice, ID3DX11Effect** effect, const std::wstring& filename);
         static void LoadCompiledEffect(ID3D11Device* direct3DDevice, ID3DX11Effect** effect, const std::wstring& filename);
 
-        Game& GetGame();
         ID3DX11Effect* GetEffect() const;
         void SetEffect(ID3DX11Effect* effect);
         const D3DX11_EFFECT_DESC& EffectDesc() const;
@@ -35,7 +34,6 @@ namespace Library
 
         void Initialize();
 
-        Game& mGame;
         ID3DX11Effect* mEffect;
         D3DX11_EFFECT_DESC mEffectDesc;
         std::vector<Technique*> mTechniques;

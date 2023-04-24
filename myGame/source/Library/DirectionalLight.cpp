@@ -5,8 +5,8 @@ namespace Library
 {
 	RTTI_DEFINITIONS(DirectionalLight)
 
-	DirectionalLight::DirectionalLight(Game& game)
-		: Light(game), mDirection(Vector3Helper::Forward), mUp(Vector3Helper::Up), mRight(Vector3Helper::Right)
+	DirectionalLight::DirectionalLight()
+		: mDirection(Vector3Helper::Forward), mUp(Vector3Helper::Up), mRight(Vector3Helper::Right)
 	{
 	}
 

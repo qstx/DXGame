@@ -18,7 +18,7 @@ namespace Rendering
 		RTTI_DECLARATIONS(DemoGameObject,GameObject)
 
 	public:
-		DemoGameObject(Game& game);
+		DemoGameObject();
 		virtual ~DemoGameObject();
 		virtual void Draw(const GameTime& gamTime) override;
 

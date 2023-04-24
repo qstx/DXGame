@@ -14,7 +14,7 @@ namespace Library
     class Scene
     {
     public:
-        Scene(Game& game, Camera& camera);
+        Scene(Camera& camera);
         virtual ~Scene();
 
         virtual void Initialize();
@@ -28,7 +28,6 @@ namespace Library
         Scene(const Scene& rhs);
         Scene& operator=(const Scene& rhs);
 
-        Game& mGame;
         Camera& mCamera;
         std::vector<GameObject*> mGameObjects;
     public:

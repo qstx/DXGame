@@ -4,8 +4,8 @@
 
 namespace Library
 {
-	Pass::Pass(Game& game, Technique& technique, ID3DX11EffectPass* pass)
-		: mGame(game), mTechnique(technique), mPass(pass), mPassDesc(), mName()
+	Pass::Pass(Technique& technique, ID3DX11EffectPass* pass)
+		: mTechnique(technique), mPass(pass), mPassDesc(), mName()
 	{
 		mPass->GetDesc(&mPassDesc);
 		mName = mPassDesc.Name;
@@ -33,7 +33,7 @@ namespace Library
 
 	void Pass::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC* inputElementDesc, UINT numElements,  ID3D11InputLayout **inputLayout)
 	{
-		HRESULT hr = mGame.Direct3DDevice()->CreateInputLayout(inputElementDesc, numElements, mPassDesc.pIAInputSignature, mPassDesc.IAInputSignatureSize, inputLayout);
+		HRESULT hr = Game::GetInstance()->Direct3DDevice()->CreateInputLayout(inputElementDesc, numElements, mPassDesc.pIAInputSignature, mPassDesc.IAInputSignatureSize, inputLayout);
 		if (FAILED(hr))
 		{
 			throw GameException("ID3D11Device::CreateInputLayout() failed.", hr);

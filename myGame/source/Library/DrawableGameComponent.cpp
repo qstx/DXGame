@@ -1,16 +1,12 @@
 #include "DrawableGameComponent.h"
+#include "Game.h"
 
 namespace Library
 {
 	RTTI_DEFINITIONS(DrawableGameComponent)
 
 	DrawableGameComponent::DrawableGameComponent()
-		: GameComponent(), mVisible(true), mCamera(nullptr)
-	{
-	}
-
-	DrawableGameComponent::DrawableGameComponent(Camera& camera)
-		: GameComponent(), mVisible(true), mCamera(&camera)
+		: GameComponent(), mVisible(true)
 	{
 	}
 
@@ -26,16 +22,6 @@ namespace Library
 	void DrawableGameComponent::SetVisible(bool visible)
 	{
 		mVisible = visible;
-	}
-
-	Camera* DrawableGameComponent::GetCamera()
-	{
-		return mCamera;
-	}
-
-	void DrawableGameComponent::SetCamera(Camera* camera)
-	{
-		mCamera = camera;
 	}
 
 	void DrawableGameComponent::Draw(const GameTime& gameTime)

@@ -7,8 +7,8 @@ namespace Library
 {
     RTTI_DEFINITIONS(Keyboard)
 
-    Keyboard::Keyboard(Game& game, LPDIRECTINPUT8 directInput)
-        : GameComponent(), mDirectInput(directInput), mDevice(nullptr)
+    Keyboard::Keyboard(LPDIRECTINPUT8 directInput)
+        : mDirectInput(directInput), mDevice(nullptr)
     {
         assert(mDirectInput != nullptr);		
         ZeroMemory(mCurrentState, sizeof(mCurrentState));

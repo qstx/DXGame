@@ -9,7 +9,7 @@ namespace Library
     class RenderStateHelper
     {
     public:
-        RenderStateHelper(Game& game);
+        RenderStateHelper();
         ~RenderStateHelper();
 
         static void ResetAll(ID3D11DeviceContext* deviceContext);
@@ -33,8 +33,6 @@ namespace Library
     private:
         RenderStateHelper(const RenderStateHelper& rhs);
         RenderStateHelper& operator=(const RenderStateHelper& rhs);
-
-        Game& mGame;
 
         ID3D11RasterizerState* mRasterizerState;
         ID3D11BlendState* mBlendState;

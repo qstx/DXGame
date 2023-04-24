@@ -6,15 +6,15 @@
 #include "MatrixHelper.h"
 #include "DefaultSkybox.h"
 
-Library::DemoScene::DemoScene(Game& game, Camera& camera):
-	Scene(game,camera)
+Library::DemoScene::DemoScene(Camera& camera):
+	Scene(camera)
 {
-	mGameObjects.push_back(new Rendering::DemoGameObject(game));
-	mGameObjects.push_back(new Rendering::DefaultSkybox(game));
+	mGameObjects.push_back(new Rendering::DemoGameObject());
+	mGameObjects.push_back(new Rendering::DefaultSkybox());
 	//mLights.push_back(new DirectionalLight(game));
 	//mMainDirectionalLight = new DirectionalLight(game);
 	//mMainDirectionalLight->SetColor(1, 0, 0, 0.5);
-	DirectionalLight* dl = new DirectionalLight(game);
+	DirectionalLight* dl = new DirectionalLight();
 	dl->SetColor(1, 1, 1, 0.5);
 	mDirectionalLights.push_back(dl);
 	//dl = new DirectionalLight(game);
