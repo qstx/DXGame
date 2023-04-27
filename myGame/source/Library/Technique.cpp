@@ -30,6 +30,15 @@ namespace Library
         return mEffect;
     }
 
+    Pass* Technique::GetPass(std::string passName)
+    {
+        auto ptr = mPassesByName.find(passName);
+        if (ptr == mPassesByName.end())
+            return nullptr;
+        else
+            return ptr->second;
+    }
+
     ID3DX11EffectTechnique* Technique::GetTechnique() const
     {
         return mTechnique;

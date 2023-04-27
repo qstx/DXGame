@@ -56,8 +56,8 @@ namespace Library
 		}
 	}
 
-	XMCOLOR& Scene::GetAmbientColor()
+	const XMVECTOR& Scene::GetAmbientColor()
 	{
-		return mAmbientColor;
+		return XMLoadFloat4(&mAmbientColor);
 	}
 }

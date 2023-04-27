@@ -22,17 +22,15 @@ namespace Library
         virtual void Draw(const GameTime& gameTime);
         virtual void Shutdown();
 
-        Game& GetGame();
-        XMCOLOR& GetAmbientColor();
+        const XMVECTOR& GetAmbientColor();
     protected:
-        Scene(const Scene& rhs);
-        Scene& operator=(const Scene& rhs);
+        Scene(const Scene& rhs) = delete;
+        Scene& operator=(const Scene& rhs) = delete;
 
         Camera& mCamera;
         std::vector<GameObject*> mGameObjects;
     public:
-        XMCOLOR mAmbientColor;
-        //DirectionalLight* mMainDirectionalLight;
+        XMFLOAT4 mAmbientColor;
         std::vector<Light*> mLights;
         std::vector<DirectionalLight*> mDirectionalLights;
     };

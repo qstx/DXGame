@@ -33,6 +33,14 @@ namespace Rendering
 		GameObject::Draw(gameTime);
 		mRenderStateHelper->RestoreAll();
 	}
+	void DefaultSkybox::DrawPass(const GameTime& gameTime, std::string passName)
+	{
+		mRenderStateHelper->SaveAll();
+		Game::GetInstance()->Direct3DDeviceContext()->OMSetDepthStencilState(DepthStencilStates::DepthLessEqual_NoWrite, 0);
+		Game::GetInstance()->Direct3DDeviceContext()->RSSetState(RasterizerStates::FrontCulling);
+		GameObject::DrawPass(gameTime,passName);
+		mRenderStateHelper->RestoreAll();
+	}
 	void DefaultSkybox::Destory()
 	{
 		GameObject::Destory();

@@ -118,7 +118,46 @@ namespace Rendering
 		UINT offset = 0;
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
 		XMMATRIX vp = Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
-		XMVECTOR ambientColor = XMLoadColor(&(Game::GetInstance()->GetScene()->GetAmbientColor()));
+		XMVECTOR ambientColor = Game::GetInstance()->GetScene()->GetAmbientColor();
+
+		mMaterial->ViewProjection() << vp;
+		mMaterial->World() << worldMatrix;
+		mMaterial->CamPos() << Game::GetInstance()->GetCamera()->PositionVector();
+		mMaterial->AmbientColor() << ambientColor;
+		mMaterial->NumDirLight() << Game::GetInstance()->GetScene()->mDirectionalLights.size();
+		for (int i = 0; i < Game::GetInstance()->GetScene()->mDirectionalLights.size(); ++i)
+		{
+			mMaterial->DirectLights().GetVariable()->GetElement(i)->SetRawValue(Game::GetInstance()->GetScene()->mDirectionalLights[i]->GetData(), 0, sizeof(DirectionalLightData));
+		}
+		mMaterial->AlbedoTexture() << mAlbedoTextureShaderResourceView;
+		if (mNormalTextureShaderResourceView)
+			mMaterial->NormalTexture() << mNormalTextureShaderResourceView;
+		if (mMetallicRoughnessTextureShaderResourceView)
+			mMaterial->MetallicRoughnessTexture() << mMetallicRoughnessTextureShaderResourceView;
+		pass->Apply(0, direct3DDeviceContext);
+		for (int i = 0; i < mVertexBuffers.size(); ++i)
+		{
+			direct3DDeviceContext->IASetVertexBuffers(0, 1, &mVertexBuffers[i], &stride, &offset);
+			direct3DDeviceContext->IASetIndexBuffer(mIndexBuffers[i], DXGI_FORMAT_R32_UINT, 0);
+			direct3DDeviceContext->DrawIndexed(mIndexCounts[i], 0, 0);
+		}
+	}
+	void PBRMeshComponent::DrawPass(const GameTime& gameTime, std::string passName)
+	{
+		Pass* pass = mMaterial->CurrentTechnique()->GetPass(passName);
+		if (!pass)
+			return;
+		ID3D11DeviceContext* direct3DDeviceContext = Game::GetInstance()->Direct3DDeviceContext();
+		direct3DDeviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		ID3D11InputLayout* inputLayout = mMaterial->InputLayouts().at(pass);
+		direct3DDeviceContext->IASetInputLayout(inputLayout);
+
+		UINT stride = mMaterial->VertexSize();
+		UINT offset = 0;
+		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
+		XMMATRIX vp = Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
+		XMVECTOR ambientColor = Game::GetInstance()->GetScene()->GetAmbientColor();
 
 		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;

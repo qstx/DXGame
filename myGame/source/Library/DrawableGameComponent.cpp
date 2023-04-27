@@ -27,4 +27,7 @@ namespace Library
 	void DrawableGameComponent::Draw(const GameTime& gameTime)
 	{
 	}
+	void DrawableGameComponent::DrawPass(const GameTime& gameTime, std::string pasaName)
+	{
+	}
 }

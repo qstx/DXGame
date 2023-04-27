@@ -14,34 +14,23 @@ namespace Library
 	{
 	}
 
-	const XMCOLOR& Light::Color() const
+	const XMFLOAT4& Light::Color() const
 	{
 		return mColor;
 	}
 
-	XMVECTOR Light::ColorVector() const
+	const XMVECTOR Light::ColorVector() const
 	{
-		return XMLoadColor(&mColor);
-	}
-
-	XMFLOAT4 Light::ColorFloat4() const
-	{
-		return XMFLOAT4(mColor.r / 255.0f, mColor.g / 255.0f, mColor.b / 255.0f, mColor.a / 255.0f);
+		return XMLoadFloat4(&mColor);
 	}
 
 	void Light::SetColor(FLOAT r, FLOAT g, FLOAT b, FLOAT a)
 	{
-		XMCOLOR color(r, g, b, a);
-		SetColor(color);
+		mColor = XMFLOAT4(r, g, b, a);
 	}
 
-	void Light::SetColor(XMCOLOR color)
+	void Light::SetColor(XMFLOAT4 color)
 	{
 		mColor = color;
-	}
-
-	void Light::SetColor(FXMVECTOR color)
-	{
-		XMStoreColor(&mColor, color);
 	}
 }

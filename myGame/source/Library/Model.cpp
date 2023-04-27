@@ -14,7 +14,7 @@ namespace Library
     {
         Assimp::Importer importer;
 
-        UINT flags = aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_FlipWindingOrder;
+        UINT flags = aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_FlipWindingOrder | aiProcess_CalcTangentSpace;
         if (flipUVs)
         {
             flags |= aiProcess_FlipUVs;

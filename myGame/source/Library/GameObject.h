@@ -21,6 +21,7 @@ namespace Library
 		virtual void Initialize();
 		virtual void Update(const GameTime& gameTime);
 		virtual void Draw(const GameTime& gameTime);
+		virtual void DrawPass(const GameTime& gameTime, std::string passName);
 		virtual void Destory();
 
     protected:

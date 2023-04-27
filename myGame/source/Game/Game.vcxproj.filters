@@ -33,18 +33,12 @@
     <ClCompile Include="ModelFromFile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectDiffuseLight.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingGame.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ModelFromFile.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectDiffuseLight.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -79,6 +73,9 @@
       <Filter>Contents\Shaders\include</Filter>
     </None>
     <None Include="..\..\content\Effects\include\PBRCommon.fxh">
+      <Filter>Contents\Shaders\include</Filter>
+    </None>
+    <None Include="..\..\content\Effects\include\ShadowMap.fxh">
       <Filter>Contents\Shaders\include</Filter>
     </None>
   </ItemGroup>

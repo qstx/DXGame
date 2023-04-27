@@ -16,7 +16,7 @@ namespace Library
 
 	void DirectionalLight::Initialize()
 	{
-		data.color = ColorFloat4();
+		data.color = Color();
 		data.direct = Direction();
 	}
 

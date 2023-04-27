@@ -13,15 +13,13 @@ namespace Library
 		Light();
 		virtual ~Light();
 
-		const XMCOLOR& Color() const;
-		XMVECTOR ColorVector() const;
-		XMFLOAT4 ColorFloat4() const;
+		const XMFLOAT4& Color() const;
+		const XMVECTOR ColorVector() const;
 		void SetColor(FLOAT r, FLOAT g, FLOAT b, FLOAT a);
-		void SetColor(XMCOLOR color);
-		void SetColor(FXMVECTOR color);
+		void SetColor(XMFLOAT4 color);
 
 	protected:
-		XMCOLOR mColor;
+		XMFLOAT4 mColor;
 	};
 }
 

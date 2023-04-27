@@ -11,11 +11,14 @@ namespace Rendering
         XMFLOAT4 Position;
         XMFLOAT2 TextureCoordinates;
         XMFLOAT3 Normal;
+        XMFLOAT3 Tangent;
+        XMFLOAT3 Bitangent;
 
         _PBRMaterialVertex() {}
 
-        _PBRMaterialVertex(XMFLOAT4 position, XMFLOAT2 textureCoordinates, XMFLOAT3 normal)
-            : Position(position), TextureCoordinates(textureCoordinates), Normal(normal)
+        _PBRMaterialVertex(XMFLOAT4 position, XMFLOAT2 textureCoordinates, XMFLOAT3 normal, XMFLOAT3 tangent, XMFLOAT3 bitangent)
+            : Position(position), TextureCoordinates(textureCoordinates), Normal(normal),
+            Tangent(tangent),Bitangent(bitangent)
         {
         }
     } PBRMaterialVertex;

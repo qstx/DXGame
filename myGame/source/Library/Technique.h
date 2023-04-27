@@ -15,6 +15,7 @@ namespace Library
         ~Technique();
 
         Effect& GetEffect();
+        Pass* GetPass(std::string passName);
         ID3DX11EffectTechnique* GetTechnique() const;
         const D3DX11_TECHNIQUE_DESC& TechniqueDesc() const;
         const std::string& Name() const;

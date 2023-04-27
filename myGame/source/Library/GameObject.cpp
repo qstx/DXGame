@@ -45,6 +45,17 @@ namespace Library
 		}
 	}
 
+	void GameObject::DrawPass(const GameTime& gameTime, std::string passName)
+	{
+		DrawableGameComponent* dComp = nullptr;
+		for (GameComponent*& comp : mGameComponents)
+		{
+			dComp = (*comp).As<DrawableGameComponent>();
+			if (dComp)
+				dComp->DrawPass(gameTime,passName);
+		}
+	}
+
 	void GameObject::Destory()
 	{
 		for (GameComponent*& comp : mGameComponents)

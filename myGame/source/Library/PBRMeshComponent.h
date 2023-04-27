@@ -24,6 +24,7 @@ namespace Rendering
 		virtual void Initialize() override;
 		virtual void Update(const GameTime& gameTime) override;
 		virtual void Draw(const GameTime& gameTime) override;
+		virtual void DrawPass(const GameTime& gameTime, std::string pasaName) override;
 
 		//add to support multiple model in the scene
 		void SetPosition(const float rotateX, const float rotateY, const float rotateZ, const float scaleFactor, const float translateX, const float translateY, const float translateZ);

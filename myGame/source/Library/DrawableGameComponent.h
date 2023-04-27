@@ -18,12 +18,13 @@ namespace Library
         void SetVisible(bool visible);
 
         virtual void Draw(const GameTime& gameTime);
+        virtual void DrawPass(const GameTime& gameTime, std::string passName);
 
     protected:
         bool mVisible;
 
     private:
-        DrawableGameComponent(const DrawableGameComponent& rhs);
-        DrawableGameComponent& operator=(const DrawableGameComponent& rhs);
+        DrawableGameComponent(const DrawableGameComponent& rhs) = delete;
+        DrawableGameComponent& operator=(const DrawableGameComponent& rhs) = delete;
     };
 }

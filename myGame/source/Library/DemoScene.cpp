@@ -11,11 +11,11 @@
 Library::DemoScene::DemoScene(Camera& camera):
 	Scene(camera)
 {
-	mAmbientColor = XMCOLOR(1, 1, 1, 0.3);
+	mSkybox = new Rendering::DefaultSkybox();
+	mAmbientColor = XMFLOAT4(1, 1, 1, 0.05);
 	mGameObjects.push_back(new Rendering::SubstanceBoy());
-	mGameObjects.push_back(new Rendering::DefaultSkybox());
 	DirectionalLight* dl = new DirectionalLight();
-	dl->SetColor(1, 1, 1, 0.05);
+	dl->SetColor(1, 1, 1, 10);
 	mDirectionalLights.push_back(dl);
 }
 
@@ -25,6 +25,7 @@ Library::DemoScene::~DemoScene()
 
 void Library::DemoScene::Initialize()
 {
+	mSkybox->Initialize();
 	Scene::Initialize();
 	for (DirectionalLight*& dl : mDirectionalLights)
 		dl->Initialize();
@@ -41,9 +42,20 @@ void Library::DemoScene::Update(const GameTime& gameTime)
 		dl->Update(gameTime);
 }
 
+void Library::DemoScene::Draw(const GameTime& gameTime)
+{
+	for (GameObject*& go : mGameObjects)
+	{
+		go->DrawPass(gameTime,"p0");
+	}
+	mSkybox->Draw(gameTime);
+}
+
 void Library::DemoScene::Shutdown()
 {
 	for (DirectionalLight*& dl : mDirectionalLights)
 		DeleteObject(dl);
 	Scene::Shutdown();
+	mSkybox->Destory();
+	DeleteObject(mSkybox);
 }

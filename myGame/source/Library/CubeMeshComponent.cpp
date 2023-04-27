@@ -155,7 +155,7 @@ DefaultMaterialVertex(XMFLOAT4(-0.5f, -0.5f,-0.5f, 1.0f), XMFLOAT2(0.0f, 0.0f),X
 		UINT offset = 0;
 		XMMATRIX worldMatrix = XMLoadFloat4x4(&mWorldMatrix);
 		XMMATRIX vp = Game::GetInstance()->GetCamera()->ViewMatrix() * Game::GetInstance()->GetCamera()->ProjectionMatrix();
-		XMVECTOR ambientColor = XMLoadColor(&(Game::GetInstance()->GetScene()->GetAmbientColor()));
+		XMVECTOR ambientColor = Game::GetInstance()->GetScene()->GetAmbientColor();
 
 		mMaterial->ViewProjection() << vp;
 		mMaterial->World() << worldMatrix;

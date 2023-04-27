@@ -25,6 +25,7 @@ namespace Rendering
 		virtual void Initialize() override;
 		virtual void Update(const GameTime& gameTime) override;
 		virtual void Draw(const GameTime& gameTime) override;
+		virtual void DrawPass(const GameTime& gameTime,std::string passName) override;
 		virtual void Destory() override;
 
 	protected:
